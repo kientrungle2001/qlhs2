@@ -1,0 +1,1 @@
+<a onclick="<?php echo @$data->action;?>; return false;" href="javascript:<?php echo @$data->action;?>;" class="easyui-linkbutton" iconCls="icon-<?php echo @$data->icon;?>" plain="true">&nbsp;<?php echo @$data->label;?></a>

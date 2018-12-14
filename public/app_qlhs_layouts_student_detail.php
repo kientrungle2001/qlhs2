@@ -1,0 +1,480 @@
+<?php require_once BASE_DIR . '/' . pzk_app()->getUri('constants.php')?>
+<?php $student = $data->getDetail();
+?>
+<div id="student_detail_div">
+<!-- Chi tiết học sinh -->
+<<?php echo @$btabs;?> style="width:600px;height:auto;">
+<div class="student_detail" title="Chi tiết">
+<form>
+	<div class="left-column">
+		<div class="left-handside">Họ và tên: </div>
+		<div class="right-handside"><?php echo @$student['name'];?></div>
+		<div class="clear"></div>
+		<div class="left-handside">Ngày sinh:</div>
+		<div class="right-handside"><?php echo @$student['birthDate'];?></div>
+		<div class="clear"></div>
+		<div class="left-handside">Số điện thoại:</div>
+		<div class="right-handside"><?php echo @$student['phone'];?></div>
+		<div class="clear"></div>
+	</div>
+	<div class="right-column">
+		<div class="left-handside">Trường học:</div>
+		<div class="right-handside"><?php echo @$student['school'];?></div>
+		<div class="clear"></div>
+		<div class="left-handside">Địa chỉ nhà:</div>
+		<div class="right-handside"><?php echo @$student['address'];?></div>
+		<div class="clear"></div>
+		<div class="left-handside">Lớp học:</div>
+		<div class="right-handside"><?php echo @$student['classNames'];?></div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+</form>
+</div>
+<div title="Lịch sử tư vấn">
+	<?php
+	$rand = rand(0, 1000000);
+	$advice = <<<EOD
+<dg.dataGrid id="dg_advice_{$rand}" title="Lịch sử tư vấn" nowrap="false" table="advice" width="600px" height="250px" defaultFilters='{"studentId": {$student['id']}}' rowStyler="adviceRowStyler">
+	
+	<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
+	<dg.dataGridItem field="type" width="120" formatter="adviceTypeFormatter">Loại</dg.dataGridItem>
+	<dg.dataGridItem field="title" width="120">Tiêu đề</dg.dataGridItem>
+	<dg.dataGridItem field="subjectName" width="120">Môn/Phần mềm</dg.dataGridItem>
+	<dg.dataGridItem field="className" width="120">Khóa học</dg.dataGridItem>
+	<dg.dataGridItem field="adviceName" width="120">Người tư vấn</dg.dataGridItem>
+	<dg.dataGridItem field="time" width="120">Thời gian</dg.dataGridItem>
+	<dg.dataGridItem field="status" width="120" formatter="adviceStatusFormatter">Trạng thái</dg.dataGridItem>
+	<layout.toolbar id="dg_advice_{$rand}_toolbar">
+		<layout.toolbarItem action="pzk.elements.dg_advice_{$rand}.add(); jQuery('#fm-dg_advice_{$rand} [name=studentId]').val('{$student['id']}');" icon="add" />
+		<layout.toolbarItem action="pzk.elements.dg_advice_{$rand}.edit()" icon="edit" />
+		<layout.toolbarItem action="pzk.elements.dg_advice_{$rand}.del()" icon="remove" />
+	</layout.toolbar>
+	<wdw.dialog gridId="dg_advice_{$rand}" width="700px" height="auto" title="Phần mềm">
+		<frm.form gridId="dg_advice_{$rand}">
+			<frm.formItem type="hidden" name="id" required="false" label="" />
+			<frm.formItem type="user-defined" name="type" required="false" label="Loại hình">
+				<select name="type">
+					<option value="0">Cuộc gọi</option>
+					<option value="1">Tin nhắn</option>
+					<option value="2">Facebook</option>
+					<option value="3">Email</option>
+					<option value="4">Gặp gỡ</option>
+				</select>
+			</frm.formItem>
+			<frm.formItem name="title" required="true" validatebox="true" label="Tiêu đề" />
+			<frm.formItem name="content" required="true" validatebox="true" label="Nội dung" />
+			<frm.formItem type="hidden" name="studentId" value="{$student['id']}" required="false" label="" />
+			<frm.formItem type="datetime-local" name="time" value="{$current_date}" required="false" label="" />
+			<frm.formItem type="user-defined" name="subjectId" required="false" label="Môn học">
+				<form.combobox name="subjectId"
+						sql="$subject_sql"
+							layout="category-select-list"></form.combobox>
+			</frm.formItem>
+			<frm.formItem type="user-defined" name="classId" required="false" label="Khóa học">
+				<form.combobox name="classId"
+						sql="$class_sql"
+							layout="category-select-list"></form.combobox>
+			</frm.formItem>
+			<frm.formItem type="user-defined" name="adviceId" required="false" label="Giáo viên">
+				<form.combobox name="adviceId"
+						sql="$teacher_sql"
+							layout="category-select-list"></form.combobox>
+			</frm.formItem>
+			<frm.formItem type="user-defined" name="status" required="false" label="Trạng thái">
+				<select name="status">
+					<option value="0">Từ chối</option>
+					<option value="1">Đang xem xét</option>
+					<option value="2">Đang thử</option>
+					<option value="3">Đồng ý</option>
+				</select>
+			</frm.formItem>
+		</frm.form>
+	</wdw.dialog>
+</dg.dataGrid>
+EOD;
+	$adviceGrid = pzk_parse($advice);
+	$adviceGrid->display();
+	?>
+</div>
+<div title="Bài kiểm tra">
+<?php
+	$rand = rand(0, 1000000);
+	$advice = <<<EOD
+<dg.dataGrid id="dg_test_student_mark{$rand}" title="Điểm thi" table="test_student_mark" width="600px" height="250px" defaultFilters='{"studentId": {$student['id']}}' nowrap="false">
+	
+	<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
+	<dg.dataGridItem field="testName" width="120">Bài kiểm tra</dg.dataGridItem>
+	<dg.dataGridItem field="subjectName" width="120">Môn</dg.dataGridItem>
+	<dg.dataGridItem field="className" width="120">Khóa học</dg.dataGridItem>
+	<dg.dataGridItem field="mark" width="120">Điểm</dg.dataGridItem>
+	<dg.dataGridItem field="status" width="120">Trạng thái</dg.dataGridItem>
+	<layout.toolbar id="dg_test_student_mark{$rand}_toolbar">
+		<layout.toolbarItem action="pzk.elements.dg_test_student_mark{$rand}.add(); jQuery('#fm-dg_advice_{$rand} [name=studentId]').val('{$student['id']}');" icon="add" />
+		<layout.toolbarItem action="pzk.elements.dg_test_student_mark{$rand}.edit()" icon="edit" />
+		<layout.toolbarItem action="pzk.elements.dg_test_student_mark{$rand}.del()" icon="remove" />
+	</layout.toolbar>
+	<wdw.dialog gridId="dg_test_student_mark{$rand}" width="700px" height="auto" title="Bài kiểm tra">
+		<frm.form gridId="dg_test_student_mark{$rand}">
+			<frm.formItem type="hidden" name="id" required="false" label="" />
+			<frm.formItem type="hidden" name="studentId" value="{$student['id']}" required="false" label="" />
+			<frm.formItem type="user-defined" name="testId" required="false" label="Bài kiểm tra">
+				<form.combobox name="testId"
+						sql="$test_sql"
+							layout="category-select-list"></form.combobox>
+			</frm.formItem>
+			<frm.formItem type="user-defined" name="classId" required="false" label="Khóa học">
+				<form.combobox name="classId"
+						sql="$class_sql"
+							layout="category-select-list"></form.combobox>
+			</frm.formItem>
+			<frm.formItem type="text" name="mark" required="true" label="Điểm" />
+		</frm.form>
+	</wdw.dialog>
+</dg.dataGrid>
+EOD;
+	$adviceGrid = pzk_parse($advice);
+	$adviceGrid->display();
+	?>
+</div>
+<div title="Học phí">
+<?php
+	$rand = rand(0, 1000000);
+	$advice = <<<EOD
+<dg.dataGrid id="dg_student_order{$rand}" title="Học phí" table="student_order" width="600px" height="250px" defaultFilters='{"studentId": {$student['id']}}' nowrap="false">
+	
+	<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
+	<dg.dataGridItem field="className" width="120">Khóa học</dg.dataGridItem>
+	<dg.dataGridItem field="periodName" width="120">Kỳ thanh toán</dg.dataGridItem>
+	<dg.dataGridItem field="amount" width="120">Số tiền</dg.dataGridItem>
+	<dg.dataGridItem field="created" width="120">Ngày thanh toán</dg.dataGridItem>
+</dg.dataGrid>
+EOD;
+	$adviceGrid = pzk_parse($advice);
+	$adviceGrid->display();
+	?>
+</div>
+<div title="Thời khóa biểu">
+<?php
+	$rand = rand(0, 1000000);
+	$advice = <<<EOD
+<dg.dataGrid id="dg_schedule{$rand}" title="Thời khóa biểu" table="schedule" width="600px" height="250px" defaultFilters='{"studentId": {$student['id']}}' nowrap="false">
+	
+	<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
+	<dg.dataGridItem field="className" width="120">Lớp</dg.dataGridItem>
+	<dg.dataGridItem field="studyDate" width="120">Ngày học</dg.dataGridItem>
+	<dg.dataGridItem field="studyTime" width="120">Giờ học</dg.dataGridItem>
+</dg.dataGrid>
+EOD;
+	$adviceGrid = pzk_parse($advice);
+	$adviceGrid->display();
+	?>
+</div>
+<div title="Mượn sách">
+Mượn sách
+</div>
+<div title="Quên đồ">
+Quên đồ
+</div>
+</<?php echo @$etabs;?>>
+
+<!-- Điểm danh - Học phí -->
+<div class="easyui-tabs" style="width:600px;height:auto;">
+<?php 
+
+$classIds = array();
+$class_periods = array();
+$class_period_mustertotals = array();
+$class_period_discounts = array();
+$class_period_prices = array();
+$classPrices = array();
+$class_discount_reasons = array();
+foreach ($student['classes'] as $class) { 
+	if(strpos($class['name'], 'M') === false) {
+		$classIds[] = $class['id'];
+		$classPrices[] = $class['amount'];
+	}
+?>
+
+<div title="Lớp <?php echo @$class['name'];?> <?php echo $class['startClassDate'] == '0000-00-00' ?'': ' - Start: '.date('d/m', strtotime($class['startClassDate'])) ?><?php echo $class['endClassDate'] == '0000-00-00' ?'': ' - End: ' . date('d/m', strtotime($class['endClassDate'])) ?>">
+	<?php 
+	if(strpos($class['name'], 'M') !== false) { 
+		$order = _db()->useCB()->select('orderId')->fromStudent_order()
+			->whereStudentId($student['id'])
+			->whereClassId($class['id'])
+			->wherePayment_periodId('0')
+		->whereStatus('');
+		$order = $order->result_one();
+		
+	?>
+		<h2>Văn miêu tả</h2>
+		<div class="left-handside">
+		<?php if ($order) { ?> <a href="<?php echo BASE_URL; ?>/index.php/order/detail?id=<?php echo @$order['orderId'];?>" target="_blank">Xem hóa đơn</a> <?php } else { ?>
+		<a href="<?php echo BASE_URL; ?>/index.php/order/create?multiple=1&classIds=<?php echo @$class['id'];?>&studentId=<?php echo @$student['id'];?>&periodId=0&prices=<?php echo @$class['amount'];?>&amounts=<?php echo @$class['amount'];?>&discounts=0&musters=1&discount_reasons=" target="_blank">Tạo hóa đơn</a>
+		<?php } ?>
+		</div>
+		<div class="right-handside"></div><div class="clear"></div>
+</div>
+<?php
+		continue;
+	}?>
+	<div class="easyui-accordion" style="width:598px;height:auto;">
+<?php
+	$displayPeriod = true;
+	foreach($class['periods'] as $period) { ?>
+	<?php if($class['startDate'] !== '0000-00-00' && $class['startDate'] >= $period['endDate']) { $displayPeriod = false; }?>
+	<?php if($class['endDate'] !== '0000-00-00' && $class['endDate'] < $period['startDate']) { $displayPeriod = false; }?>
+	<?php if($class['startClassDate'] !== '0000-00-00' && $class['startClassDate'] >= $period['endDate']) { $displayPeriod = false; }?>
+	<?php if($class['endClassDate'] !== '0000-00-00' && $class['endClassDate'] < $period['startDate']) { $displayPeriod = false; }?>
+	<?php $statuses = $data->getStatuses($class['id'], $student['id']);?>
+	
+	
+<?php
+		if(!isset($class_periods[$period['id']])){
+			$class_periods[$period['id']] = array();
+		}
+		$class_periods[$period['id']][] = $period['need_amount'];
+		
+		if(!isset($class_period_mustertotals[$period['id']])){
+			$class_period_mustertotals[$period['id']] = array();
+		}
+		$class_period_mustertotals[$period['id']][] = isset($period['total'])?$period['total']: '0';
+		
+		if(!isset($class_period_discounts[$period['id']])){
+			$class_period_discounts[$period['id']] = array();
+		}
+		$class_period_discounts[$period['id']][] = $period['discount_amount'];
+	?>
+	<?php if(!$displayPeriod) { 
+		echo '<!--';
+	} ?>
+		<?php $att_dates = 0;?>
+		<?php $dates = $data->getStudyDates($class['id']); ?>
+		<?php foreach ( $dates as $date ) : ?>
+			<?php if ($date['studyDate'] >= $period['startDate'] && $date['studyDate'] < $period['endDate']) { ?>
+			<?php if ($student['startStudyDate'] == '0000-00-00' || $student['startStudyDate'] <= $date['studyDate']) { ?>
+			<?php if ($student['endStudyDate'] == '0000-00-00' || $student['endStudyDate'] > $date['studyDate']) { ?>
+			<?php if ($class['startClassDate'] == '0000-00-00' || $class['startClassDate'] <= $date['studyDate']) { ?>
+			<?php if ($class['endClassDate'] == '0000-00-00' || $class['endClassDate'] > $date['studyDate']) { ?>
+			<?php $att_dates++;?>
+			<?php } ?>
+			<?php } ?>
+			<?php } ?>
+			<?php } ?>
+			<?php } ?>
+		<?php endforeach; ?>
+		<?php if($att_dates !== 0): ?>
+		<div title="<?php echo @$period['name'];?>">
+			
+			<table border="1" cellpadding="4px" cellspacing="0" style="border-collapse:collapse;margin: 15px;">
+			<tr>
+				<?php foreach ( $dates as $date ) : ?>
+					<?php if ($date['studyDate'] >= $period['startDate'] && $date['studyDate'] < $period['endDate']) { ?>
+					<?php if ($student['startStudyDate'] == '0000-00-00' || $student['startStudyDate'] <= $date['studyDate']) { ?>
+					<?php if ($student['endStudyDate'] == '0000-00-00' || $student['endStudyDate'] > $date['studyDate']) { ?>
+					<?php if ($class['startClassDate'] == '0000-00-00' || $class['startClassDate'] <= $date['studyDate']) { ?>
+					<?php if ($class['endClassDate'] == '0000-00-00' || $class['endClassDate'] > $date['studyDate']) { ?>
+					<th><?php echo date('d/m', strtotime($date['studyDate']))?></th>
+					<?php } ?>
+					<?php } ?>
+					<?php } ?>
+					<?php } ?>
+					<?php } ?>
+				<?php endforeach; ?>
+			</tr>
+			<tr>
+				<?php foreach ( $dates as $date ) : ?>
+					<?php if ($date['studyDate'] >= $period['startDate'] && $date['studyDate'] < $period['endDate']) { ?>
+					<?php if ($student['startStudyDate'] == '0000-00-00' || $student['startStudyDate'] <= $date['studyDate']) { ?>
+					<?php if ($student['endStudyDate'] == '0000-00-00' || $student['endStudyDate'] > $date['studyDate']) { ?>
+					<?php if ($class['startClassDate'] == '0000-00-00' || $class['startClassDate'] <= $date['studyDate']) { ?>
+					<?php if ($class['endClassDate'] == '0000-00-00' || $class['endClassDate'] > $date['studyDate']) { ?>
+					<td><select class="muster_<?php echo @$class['id'];?>_<?php echo @$date['studyDate'];?>" id="muster_<?php echo @$class['id'];?>_<?php echo @$student['id'];?>_<?php echo @$date['studyDate'];?>" name="muster[<?php echo @$class['id'];?>][<?php echo @$student['id'];?>][<?php echo @$date['studyDate'];?>]"
+							onchange="submitMuster('<?php echo @$class['id'];?>', '<?php echo @$student['id'];?>', '<?php echo @$date['studyDate'];?>', this.value)">
+						<option value="0">N/A</option>
+						<option value="1">CM</option>
+						<option value="2">NTT</option>
+						<option value="3">NKT</option>
+						<option value="4">KTT</option>
+						<option value="5">DH</option>
+					</select>
+					</td>
+					<?php } ?>
+					<?php } ?>
+					<?php } ?>
+					<?php } ?>
+					<?php } ?>
+					<?php endforeach; ?>
+			</tr>
+			</table>
+			<div class="left-column">
+				<div class="left-handside">Điểm danh: </div><div class="right-handside"><?php echo @$period['total'];?></div><div class="clear"></div>
+				<div class="left-handside">Số buổi học:</div><div class="right-handside"><?php echo @$period['1'];?></div><div class="clear"></div>
+				<div class="left-handside">Nghỉ trừ tiền:</div><div class="right-handside"><?php echo @$period['2'];?></div><div class="clear"></div>
+				<div class="left-handside">Nghỉ K.trừ tiền:</div><div class="right-handside"><?php echo @$period['3'];?></div><div class="clear"></div>
+				<div class="left-handside">Lý do:</div><div class="right-handside">
+				
+				<?php if(isset($period['last_period'])) { 
+					$last_period = $period['last_period'];
+					$period['reason'] = @$period['reason'] ." ". @$last_period['later_reason'];
+				} ?>
+				<?php echo @$period['reason'];?>
+				<?php 
+				if(!isset($class_discount_reasons[$period['id']])){
+					$class_discount_reasons[$period['id']] = array();
+				}
+				$class_discount_reasons[$period['id']][] = @$period['reason'];
+				?>
+				</div><div class="clear"></div>
+			</div>
+			<div class="right-column">
+				<div class="left-handside">Học phí:</div><div class="right-handside"><?php echo product_price($period['amount']) ?></div><div class="clear"></div>
+				<div class="left-handside">Trừ sang tháng sau:</div><div class="right-handside"><?php echo product_price($period['next_discount_amount']) ?></div><div class="clear"></div>
+				<div class="left-handside">Lý do:</div><div class="right-handside"><?php echo @$period['later_reason'];?></div><div class="clear"></div>
+				<div class="left-handside">Trừ từ tháng trước:</div><div class="right-handside"><?php echo product_price($period['discount_amount']) ?></div><div class="clear"></div>
+				<div class="left-handside">Phải đóng:</div><div class="right-handside"><?php echo product_price($period['need_amount']) ?></div><div class="clear"></div>
+				<?php 
+				// var_dump($period['orderId']);
+				if(isset($period['orderId'])) { 
+				$order = _db()->select('orderId')->from('student_order')->where('id=' . $period['orderId'])->result_one();
+				?>
+				<div class="left-handside"><a href="<?php echo BASE_URL; ?>/index.php/order/detail?id=<?php echo @$order['orderId'];?>" target="_blank">Xem hóa đơn</a></div><div class="right-handside"></div><div class="clear"></div>
+				<?php } else { ?>
+				<div class="left-handside"><a href="<?php echo BASE_URL; ?>/index.php/order/create?multiple=1&classIds=<?php echo @$class['id'];?>&studentId=<?php echo @$student['id'];?>&periodId=<?php echo @$period['id'];?>&amounts=<?php echo @$period['need_amount'];?>&discounts=<?php echo @$period['discount_amount'];?>&musters=<?php echo @$period['total'];?>&discount_reasons=<?php echo @$period['reason'];?>&prices=<?php echo @$class['amount'];?>" target="_blank">Tạo hóa đơn</a></div><div class="right-handside"></div><div class="clear"></div>
+				<?php } ?>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<?php endif;?>
+	<?php if(!$displayPeriod) { 
+		echo '-->';
+	} ?>
+	<?php } ?>
+
+		<script type="text/javascript">
+var statuses = <?php echo json_encode($statuses)?>;
+$(document).ready(function(e) {
+	for(var i=0; i < statuses.length; i++) {
+		var classId = statuses[i]['classId'];
+		var studentId = statuses[i]['studentId'];
+		var studyDate = statuses[i]['studyDate'];
+		var status = statuses[i]['status'];
+		$('#muster_' + classId + '_' + studentId + '_' + studyDate).val(status);
+	}
+});
+</script>
+	</div>
+	
+</div>
+<?php } ?>
+<div title="Hóa đơn tổng">
+	<h2>Hóa đơn tổng</h2>
+	<div style="width:578px;height:auto;">
+	<?php 
+	if(isset($class) && $class)
+	foreach($class['periods'] as $period) { ?>
+	<?php $displayPeriod = true; ?>
+	<?php if($class['startDate'] !== '0000-00-00' && $class['startDate'] >= $period['endDate']) { $displayPeriod = false; }?>
+	<?php if($class['endDate'] !== '0000-00-00' && $class['endDate'] < $period['startDate']) { $displayPeriod = false; }?>
+	<?php if($class['startClassDate'] !== '0000-00-00' && $class['startClassDate'] >= $period['endDate']) { $displayPeriod = false; }?>
+	<?php if($class['endClassDate'] !== '0000-00-00' && $class['endClassDate'] < $period['startDate']) { $displayPeriod = false; }?>
+
+		<div title="<?php echo @$period['name'];?>" style="display: <?php echo ($displayPeriod? 'block': 'none')?>">
+			<h3><?php echo @$period['name'];?></h3>
+			<div class="left-handside">
+			<?php $all_amounts = @$class_periods[$period['id']];
+			$total_amounts = 0;
+			if(!$all_amounts) $all_amounts = array();
+			foreach($all_amounts as $each_amount) {
+				$total_amounts += $each_amount;
+			}
+			
+			?>
+			Tổng cộng: <?php echo product_price($total_amounts);?> &nbsp;
+<a href="<?php echo BASE_URL; ?>/index.php/order/create?multiple=1&prices=<?php echo @implode(',', @$classPrices) ?>&classIds=<?php echo @implode(',', @$classIds) ?>&studentId=<?php echo @$student['id'];?>&periodId=<?php echo @$period['id'];?>&discounts=<?php echo @implode(',', @$class_period_discounts[$period['id']]) ?>&musters=<?php echo @implode(',', @$class_period_mustertotals[$period['id']]) ?>&amounts=<?php echo @implode(',', @$class_periods[$period['id']]) ?>&discount_reasons=<?php echo @implode(',', @$class_discount_reasons[$period['id']]) ?>" target="_blank">Tạo hóa đơn</a></div><div class="right-handside"></div><div class="clear"></div>
+		</div>
+	<?php } ?>
+	</div>
+</div>
+</div>
+</div>
+<style type="text/css">
+	.left-column, .right-column {
+		float: left;
+		width: 49%;
+	}
+	.left-column {
+		border-right: 1px solid black;
+	}
+	.right-column {
+		margin-left:5px;
+	}
+	.left-handside, .right-handside{
+		float: left;
+	}
+	.left-handside {
+		width: 100px;
+		float: left;
+	}
+	.right-handside {
+		width: 190px;
+	}
+</style>
+<script type="text/javascript">
+	$('#student_detail_div .easyui-datagrid').datagrid();
+	$('#student_detail_div .easyui-panel').panel();
+	$('#student_detail_div .easyui-tabs').tabs();
+	$('#student_detail_div .easyui-accordion').accordion();
+	$('#student_detail_div .easyui-linkbutton').linkbutton();
+	$('#student_detail_div .easyui-dialog').dialog();
+	$('#student_detail_div .easyui-validatebox').validatebox();
+	function submitMuster(classId, studentId, studyDate, status) {
+		$.ajax({
+			type: 'post',
+			method: 'post',
+			url: BASE_URL + '/index.php/Dtable/replace?table=student_schedule',
+			data: {classId: classId, studentId: studentId, studyDate: studyDate, status: status},
+			success: function(result) {
+				var result = eval('('+result+')');
+				if (result.errorMsg){
+					$.messager.show({
+						title: 'Error',
+						msg: result.errorMsg
+					});
+				}
+			}
+		});
+	}
+	function adviceStatusFormatter(value,row,index) {
+		switch(value) {
+			case '0': return 'Từ chối';
+			case '1': return 'Đang xem xét';
+			case '2': return 'Đang thử';
+			case '3': return 'Đồng ý';
+		}
+	}
+	function adviceTypeFormatter(value,row,index) {
+		switch(value) {
+			case '0': return 'Cuộc gọi';
+			case '1': return 'Tin nhắn';
+			case '2': return 'Facebook';
+			case '3': return 'Email';
+			case '4': return 'Gặp gỡ';
+		}
+	}
+	function adviceRowStyler(index, row) {
+		if(row.status == '0') {
+			return 'color: red; font-weight: bold;';
+		}
+		if(row.status == '1') {
+			return 'color: orange; font-weight: bold;';
+		}
+		if(row.status == '2') {
+			return 'color: blue; font-weight: bold;';
+		}
+		if(row.status == '3') {
+			return 'color: green; font-weight: bold;';
+		}
+		return '';
+	}
+</script>
