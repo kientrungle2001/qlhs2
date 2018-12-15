@@ -3,7 +3,7 @@
 	<div class="clear"></div>	
 	<div style="float:left; width: 600px;">
 	<?php 
-		$filters = array('online' => 1);
+		$filters = array('online' => 0, 'classed' => 1);
 	?>
 	{include grid/student/component/datagrid}
 	</div>

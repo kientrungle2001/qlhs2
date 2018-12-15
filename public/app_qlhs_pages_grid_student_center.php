@@ -37,10 +37,13 @@
 	
 	<div style="float:left; width: 600px;">
 	<!-- Danh sách học sinh  -->
+<?php if(!isset($filters)):
+	$filters = array('online' => 0);
+endif; ?>
 <dg.dataGrid id="dg" title="Quản lý học sinh" scriptable="true" layout="easyui/datagrid/datagrid" 
 		onRowContextMenu="studentMenu" nowrap="false"
 		table="student" width="600px" height="450px"
-		rowStyler="studentRowStyler" defaultFilters='{"online": 0}'>
+		rowStyler="studentRowStyler" defaultFilters='<?php echo json_encode($filters)?>'>
 	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
 	<dg.dataGridItem field="name" width="140">Tên học sinh</dg.dataGridItem>
 	<dg.dataGridItem field="phone" width="80">Số điện thoại</dg.dataGridItem>

@@ -28,6 +28,7 @@ setTimeout(
 			<li>
 				<a href="<?php echo BASE_REQUEST . '/student/center'; ?>">Trung tâm</a>
 				<ul>
+					<li><a href="<?php echo BASE_REQUEST . '/student/classed'; ?>">Đã xếp lớp</a></li>
 					<li><a href="<?php echo BASE_REQUEST . '/student/unclassed'; ?>">Danh sách chờ</a></li>
 				</ul>
 			</li>
@@ -35,7 +36,8 @@ setTimeout(
 				<a href="<?php echo BASE_REQUEST . '/student/online'; ?>">Trực tuyến</a>
 				<ul>
 					<li><a href="<?php echo BASE_REQUEST . '/student/potential'; ?>">Tiềm năng</a></li>
-					<li><a href="#">Thân thiết</a></li>
+					<li><a href="<?php echo BASE_REQUEST . '/student/used'; ?>">Đang sử dụng</a></li>
+					<li><a href="<?php echo BASE_REQUEST . '/student/familiar'; ?>">Thân thiết</a></li>
 				</ul>				
 			</li>
 			<li>

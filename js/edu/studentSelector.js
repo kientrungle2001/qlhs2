@@ -6,6 +6,21 @@ PzkEduStudentSelector = PzkObj.pzkExt({
 	closeStudentSelectorDialog: function() {
 		$('#dlg_student_'+this.id).dialog('close');
 	},
+	showDialog: function() {
+		return this.showStudentSelectorDialog();
+	},
+	hideDialog: function () {
+		return this.closeStudentSelectorDialog();
+	},
+	getDialog: function() {
+		return $('#dlg_student_'+this.id);
+	},
+	dialog: function(options) {
+		return $('#dlg_student_'+this.id).dialog(options);
+	},
+	getDatagridObj: function() {
+		return pzk.elements['dg_student_'+this.id];
+	},
 	resetStudentSelector: function() {
 		$('#'+this.id).val('');
 		$('#label-'+this.id).text('(Trống)');

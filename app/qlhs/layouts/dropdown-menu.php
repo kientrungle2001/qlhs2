@@ -28,6 +28,7 @@ setTimeout(
 			<li>
 				<a href="{url /student/center}">Trung tâm</a>
 				<ul>
+					<li><a href="{url /student/classed}">Đã xếp lớp</a></li>
 					<li><a href="{url /student/unclassed}">Danh sách chờ</a></li>
 				</ul>
 			</li>
@@ -35,7 +36,8 @@ setTimeout(
 				<a href="{url /student/online}">Trực tuyến</a>
 				<ul>
 					<li><a href="{url /student/potential}">Tiềm năng</a></li>
-					<li><a href="#">Thân thiết</a></li>
+					<li><a href="{url /student/used}">Đang sử dụng</a></li>
+					<li><a href="{url /student/familiar}">Thân thiết</a></li>
 				</ul>				
 			</li>
 			<li>

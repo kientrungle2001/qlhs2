@@ -11,12 +11,20 @@ class PzkStudentController extends PzkBaseController {
 		$this->viewGrid('student/center');
 	}
 	
+	public function classedAction() {
+		$this->viewGrid('student/classed');
+	}
+
 	public function unclassedAction() {
 		$this->viewGrid('student/unclassed');
 	}
 	
 	public function potentialAction() {
 		$this->viewGrid('student/potential');
+	}
+
+	public function usedAction() {
+		$this->viewGrid('student/used');
 	}
 	
 	public function familiarAction() {

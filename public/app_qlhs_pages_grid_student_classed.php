@@ -3,12 +3,17 @@
 	<div class="clear"></div>	
 	<div style="float:left; width: 600px;">
 	<?php 
-		$filters = array('online' => 1, 'type' => 0);
+		$filters = array('online' => 0, 'classed' => 1);
 	?>
 	<!-- Danh sách học sinh  -->
 <?php if(!isset($filters)):
 	$filters = array('online' => 0);
 endif; ?>
+<script>
+<![CDATA[
+	var studentDefaultFilters = <?php echo json_encode($filters); ?>;
+]]>
+</script>
 <dg.dataGrid id="dg" title="Quản lý học sinh" scriptable="true" layout="easyui/datagrid/datagrid" 
 		onRowContextMenu="studentMenu" nowrap="false"
 		table="student" width="600px" height="450px"
@@ -75,7 +80,7 @@ endif; ?>
 			<layout.toolbarItem id="searchButton" action="searchStudent();" icon="search" />
 			
 			<br />
-			<layout.toolbarItem action="$dg.add()" icon="add" />
+			<layout.toolbarItem action="$dg.add(studentDefaultFilters)" icon="add" />
 			<layout.toolbarItem action="$dg.edit()" icon="edit" />
 			<layout.toolbarItem action="$dg.del()" icon="remove" />
 			<layout.toolbarItem action="$dg.detail({url: '<?php echo BASE_REQUEST . '/student/detail'; ?>', 'gridField': 'id', 'action': 'render', 'renderRegion': '#student-detail'}); $dg.detail(function(row) { selectClass(row); });" icon="sum" />

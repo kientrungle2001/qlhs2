@@ -1,4 +1,4 @@
-<?php require_once BASE_DIR . '/' . pzk_app()->getUri('constants.php')?>
+<?php require BASE_DIR . '/' . pzk_app()->getUri('constants.php')?>
 <?php $student = $data->getDetail();
 ?>
 <div id="student_detail_div">
@@ -170,12 +170,14 @@ EOD;
 	$adviceGrid->display();
 	?>
 </div>
+<!--
 <div title="Mượn sách">
 Mượn sách
 </div>
 <div title="Quên đồ">
 Quên đồ
 </div>
+-->
 </{etabs}>
 
 <!-- Điểm danh - Học phí -->

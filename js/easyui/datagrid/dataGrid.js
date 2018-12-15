@@ -362,5 +362,11 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 			}
 		}
 		return null;
+	},
+	datagrid: function(options) {
+		return $('#' + this.id).datagrid(options);
+	},
+	getDatagrid: function() {
+		return $('#' + this.id);
 	}
 });

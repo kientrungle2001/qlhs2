@@ -1,8 +1,16 @@
 <!-- Danh sách học sinh  -->
+<?php if(!isset($filters)):
+	$filters = array('online' => 0);
+endif; ?>
+<script>
+<![CDATA[
+	var studentDefaultFilters = <?php echo json_encode($filters); ?>;
+]]>
+</script>
 <dg.dataGrid id="dg" title="Quản lý học sinh" scriptable="true" layout="easyui/datagrid/datagrid" 
 		onRowContextMenu="studentMenu" nowrap="false"
 		table="student" width="600px" height="450px"
-		rowStyler="studentRowStyler" defaultFilters='{"online": 0}'>
+		rowStyler="studentRowStyler" defaultFilters='<?php echo json_encode($filters)?>'>
 	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
 	<dg.dataGridItem field="name" width="140">Tên học sinh</dg.dataGridItem>
 	<dg.dataGridItem field="phone" width="80">Số điện thoại</dg.dataGridItem>
@@ -65,7 +73,7 @@
 			<layout.toolbarItem id="searchButton" action="searchStudent();" icon="search" />
 			
 			<br />
-			<layout.toolbarItem action="$dg.add()" icon="add" />
+			<layout.toolbarItem action="$dg.add(studentDefaultFilters)" icon="add" />
 			<layout.toolbarItem action="$dg.edit()" icon="edit" />
 			<layout.toolbarItem action="$dg.del()" icon="remove" />
 			<layout.toolbarItem action="$dg.detail({url: '{url /student/detail}', 'gridField': 'id', 'action': 'render', 'renderRegion': '#student-detail'}); $dg.detail(function(row) { selectClass(row); });" icon="sum" />

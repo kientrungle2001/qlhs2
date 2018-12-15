@@ -9,6 +9,7 @@ if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/student')) {
 copy(PKG_DIR . DS . 'page.student.online.php', BASE_DIR . '/app/qlhs/pages/grid/student/online.php');
 copy(PKG_DIR . DS . 'page.student.center.php', BASE_DIR . '/app/qlhs/pages/grid/student/center.php');
 copy(PKG_DIR . DS . 'page.student.unclassed.php', BASE_DIR . '/app/qlhs/pages/grid/student/unclassed.php');
+copy(PKG_DIR . DS . 'page.student.classed.php', BASE_DIR . '/app/qlhs/pages/grid/student/classed.php');
 copy(PKG_DIR . DS . 'page.student.potential.php', BASE_DIR . '/app/qlhs/pages/grid/student/potential.php');
 copy(PKG_DIR . DS . 'page.student.familiar.php', BASE_DIR . '/app/qlhs/pages/grid/student/familiar.php');
 copy(PKG_DIR . DS . 'controller.Student.php', BASE_DIR . '/app/qlhs/controller/Student.php');
