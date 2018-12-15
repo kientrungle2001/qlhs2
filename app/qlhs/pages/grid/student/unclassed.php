@@ -1,38 +1,26 @@
 <div style="margin-top: 10px;">
 	<?php require BASE_DIR . '/' . pzk_app()->getUri('constants.php')?>
-	<div class="clear"></div>	
+	<div class="clear"></div>
+
 	<div style="float:left; width: 600px;">
 	<?php 
-		$filters = array('online' => 0, 'classed' => 0);
+		$filters = array(
+			'online' 			=> 	0,
+			'classed'			=>		0
+		);
+		$defaultAdd = array_merge($filters, array(
+			'status'				=> 	0,
+			'type'						=>		1,
+			'rating'				=> 	0,
+			'color'					=> 	'',
+			'fontStyle' => 	'',
+			'assignId'		=>		''
+		));
 	?>
 	{include grid/student/component/datagrid}
 	</div>
 	<div style="float:left; margin-left: 10px; margin-top: 0px; width: auto;">
-		<!-- Nghiệp vụ xếp lớp học sinh -->
-		<easyui.layout.panel collapsible="true" title="Xếp lớp" width="100%">
-			<span>Xếp lớp: </span>
-			<edu.courseSelector id="cmbClass" name="classId" />
-			<span>Ngày vào học: </span>
-			<input name="startStudyDate4" type="date" id="startStudyDate4" value="<?php echo date('Y-m-d', time())?>" />
-			<layout.toolbarItem action="$dg.addToTable({url: '{url /dtable/add}?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass', 'tableField2': 'startClassDate', 'tableFieldSource2': '#startStudyDate4'}); setTimeout(function(){$dg.reload();}, 1000);" icon="add" />
-			<br />
-			<span>Chuyển từ lớp: </span>
-			<form.combobox label="Chọn lớp" id="cmbClass3" name="classId"
-				sql="{class_sql}"
-					layout="category-select-list"></form.combobox>
-			<span> sang lớp: </span>
-			<edu.courseSelector id="cmbClass2" name="classId" /><span>Ngày: </span>
-					<input name="startStudyDate2" type="date" id="startStudyDate" value="<?php echo date('Y-m-d', time())?>" />
-			<layout.toolbarItem action="$dg.addToTable({url: '{url /dtable/add}?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass2', 'tableField2': 'startClassDate', 'tableFieldSource2': '#startStudyDate'}); $dg.addToTable({url: '{url /dtable/update}?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass3', 'tableField2': 'endClassDate', 'tableFieldSource2': '#startStudyDate'}); setTimeout(function(){$dg.reload();}, 1000);" icon="add" />
-			<br />
-			<span>Dừng học lớp: </span>
-			<form.combobox label="Chọn lớp" id="cmbClass4" name="classId"
-				sql="{class_sql}"
-					layout="category-select-list"></form.combobox><span>Ngày: </span>
-					<input name="startStudyDate3" type="date" id="startStudyDate3" value="<?php echo date('Y-m-d', time())?>" />
-			<layout.toolbarItem action="$dg.addToTable({url: '{url /dtable/update}?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass4', 'tableField2': 'endClassDate', 'tableFieldSource2': '#startStudyDate3'}); setTimeout(function(){$dg.reload();}, 1000);" icon="add" />
-		</easyui.layout.panel>
-		<!-- Hết nghiệp vụ xếp lớp học sinh -->
+		{include grid/student/component/classify_student}
 		<div id="student-detail"></div>
 	</div>
 	<div style="clear:both;"></div>
@@ -99,33 +87,8 @@
 			});
 			
 		}
-		/* TODO: Xử lý khi chọn môn học thì lọc ra các lớp */ 
-		setTimeout(
-			function() {
-				jQuery('#searchSubject').change(function(e){
-					var subjectId = e.target.value;
-					console.log(subjectId);
-				});
-				$('#selected_class').click(function(){
-					$('#selected_class').text('');
-					$('#searchClassIds').val('');
-					selected_class = null;
-					searchStudent();
-					return false;
-				});
-			},
-			1000
-		)
 		
 	</script>
-	<style>
-		.hidden-level {
-			display: none;
-		}
-		.hidden-subjectId {
-			display: none;
-		}
-	</style>
 	<script type="text/javascript">
 	<![CDATA[
 	function searchClasses() {
@@ -137,14 +100,6 @@
 				'status': '#searchStatus'
 			}
 		});
-	}
-	selected_class = null;
-	function selectClassSelector(row) {
-		selected_class = row;
-		$('#selected_class').text(row.name + ' - (Bỏ chọn)');
-		$('#searchClassIds').val(row.id);
-		$('#selected_class').attr('title', row.name);
-		searchStudent();
 	}
 
 	function studentRowStyler(index, row) {
@@ -167,7 +122,6 @@
 			var currentDate = new Date();
 			return (currentDate.getTime() - studentDate.getTime() > 365 * 24 * 3600 * 1000) ?  'color: grey;': '';
 		} else {
-			console.log(style);
 			return style;
 		}
 	}

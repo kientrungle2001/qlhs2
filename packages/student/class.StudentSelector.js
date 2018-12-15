@@ -1,7 +1,14 @@
 // Js
 PzkEduStudentSelector = PzkObj.pzkExt({
-	showStudentSelectorDialog: function() {
+	showStudentSelectorDialog: function(initialFilters) {
+		
 		$('#dlg_student_'+this.id).dialog('open');
+		if(initialFilters) {
+			if(!this.initialFilters) {
+				this.initialFilters = initialFilters;
+				this.getDatagridObj().filters(initialFilters);
+			}
+		}
 	},
 	closeStudentSelectorDialog: function() {
 		$('#dlg_student_'+this.id).dialog('close');

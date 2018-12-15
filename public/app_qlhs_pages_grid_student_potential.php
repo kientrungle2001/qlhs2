@@ -1,14 +1,36 @@
 <div style="margin-top: 10px;">
 	<?php require BASE_DIR . '/' . pzk_app()->getUri('constants.php')?>
-	<div class="clear"></div>	
+	<div class="clear"></div>
+
 	<div style="float:left; width: 600px;">
 	<?php 
-		$filters = array('online' => 1, 'type' => 0);
+		$filters = array(
+			'online' 			=> 1,
+			'type'						=>	0,
+		);
+		$defaultAdd = array_merge($filters, array(
+			'status'				=> 1,
+			'classed'			=>	1,
+			'rating'				=> 0,
+			'color'					=> 	'',
+			'fontStyle' => '',
+			'assignId'		=>	''
+		));
 	?>
 	<!-- Danh sách học sinh  -->
 <?php if(!isset($filters)):
 	$filters = array('online' => 0);
-endif; ?>
+endif;
+if(!isset($defaultAdd)) {
+	$defaultAdd = $filters;
+}
+?>
+<script>
+<![CDATA[
+	var studentDefaultFilters = <?php echo json_encode($filters); ?>;
+	var studentDefaultAdd = <?php echo json_encode($defaultAdd); ?>;
+]]>
+</script>
 <dg.dataGrid id="dg" title="Quản lý học sinh" scriptable="true" layout="easyui/datagrid/datagrid" 
 		onRowContextMenu="studentMenu" nowrap="false"
 		table="student" width="600px" height="450px"
@@ -51,12 +73,14 @@ endif; ?>
 			<form.combobox label="Người phụ trách" id="searchAssignId" name="assignId"
 				sql="<?php echo @$teacher_sql;?>" onChange="searchStudent();"
 				layout="category-select-list"></form.combobox>
+			<?php if(!isset($filters['type'])): ?>
 			<select name="type" id="searchType" onChange="searchStudent();">
 				<option value="">Phân loại</option>
 				<option value="1">Đang học</option>
 				<option value="0">Tiềm năng</option>
 				<option value="2">Lâu năm</option>
 			</select>
+			<?php endif;?>
 			<select name="rating" id="searchRating" onChange="searchStudent();">
 				<option value="">Xếp hạng</option>
 				<option value="0">Chưa xếp hạng</option>
@@ -66,16 +90,18 @@ endif; ?>
 				<option value="4">Giỏi</option>
 				<option value="5">Xuất Sắc</option>
 			</select>
+			<?php if(!isset($filters['status'])): ?>
 			<select name="status" id="searchStatus" onChange="searchStudent();">
 				<option value="">Trạng thái</option>
-				<option value="0">Đang học</option>
-				<option value="1">Dừng học</option>
+				<option value="1">Đang học</option>
+				<option value="0">Dừng học</option>
 			</select>
+		<?php endif;?>
 			<input type="submit" style="display: none;" value="Tìm" />
 			<layout.toolbarItem id="searchButton" action="searchStudent();" icon="search" />
 			
 			<br />
-			<layout.toolbarItem action="$dg.add()" icon="add" />
+			<layout.toolbarItem action="$dg.add(studentDefaultAdd)" icon="add" />
 			<layout.toolbarItem action="$dg.edit()" icon="edit" />
 			<layout.toolbarItem action="$dg.del()" icon="remove" />
 			<layout.toolbarItem action="$dg.detail({url: '<?php echo BASE_REQUEST . '/student/detail'; ?>', 'gridField': 'id', 'action': 'render', 'renderRegion': '#student-detail'}); $dg.detail(function(row) { selectClass(row); });" icon="sum" />
@@ -168,30 +194,30 @@ endif; ?>
 	</div>
 	<div style="float:left; margin-left: 10px; margin-top: 0px; width: auto;">
 		<!-- Nghiệp vụ xếp lớp học sinh -->
-		<easyui.layout.panel collapsible="true" title="Xếp lớp" width="100%">
-			<span>Xếp lớp: </span>
-			<edu.courseSelector id="cmbClass" name="classId" />
-			<span>Ngày vào học: </span>
-			<input name="startStudyDate4" type="date" id="startStudyDate4" value="<?php echo date('Y-m-d', time())?>" />
-			<layout.toolbarItem action="$dg.addToTable({url: '<?php echo BASE_REQUEST . '/dtable/add'; ?>?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass', 'tableField2': 'startClassDate', 'tableFieldSource2': '#startStudyDate4'}); setTimeout(function(){$dg.reload();}, 1000);" icon="add" />
-			<br />
-			<span>Chuyển từ lớp: </span>
-			<form.combobox label="Chọn lớp" id="cmbClass3" name="classId"
-				sql="<?php echo @$class_sql;?>"
-					layout="category-select-list"></form.combobox>
-			<span> sang lớp: </span>
-			<edu.courseSelector id="cmbClass2" name="classId" /><span>Ngày: </span>
-					<input name="startStudyDate2" type="date" id="startStudyDate" value="<?php echo date('Y-m-d', time())?>" />
-			<layout.toolbarItem action="$dg.addToTable({url: '<?php echo BASE_REQUEST . '/dtable/add'; ?>?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass2', 'tableField2': 'startClassDate', 'tableFieldSource2': '#startStudyDate'}); $dg.addToTable({url: '<?php echo BASE_REQUEST . '/dtable/update'; ?>?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass3', 'tableField2': 'endClassDate', 'tableFieldSource2': '#startStudyDate'}); setTimeout(function(){$dg.reload();}, 1000);" icon="add" />
-			<br />
-			<span>Dừng học lớp: </span>
-			<form.combobox label="Chọn lớp" id="cmbClass4" name="classId"
-				sql="<?php echo @$class_sql;?>"
-					layout="category-select-list"></form.combobox><span>Ngày: </span>
-					<input name="startStudyDate3" type="date" id="startStudyDate3" value="<?php echo date('Y-m-d', time())?>" />
-			<layout.toolbarItem action="$dg.addToTable({url: '<?php echo BASE_REQUEST . '/dtable/update'; ?>?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass4', 'tableField2': 'endClassDate', 'tableFieldSource2': '#startStudyDate3'}); setTimeout(function(){$dg.reload();}, 1000);" icon="add" />
-		</easyui.layout.panel>
-		<!-- Hết nghiệp vụ xếp lớp học sinh -->
+<easyui.layout.panel collapsible="true" title="Xếp lớp" width="100%">
+	<span>Xếp lớp: </span>
+	<edu.courseSelector id="cmbClass" name="classId" />
+	<span>Ngày vào học: </span>
+	<input name="startStudyDate4" type="date" id="startStudyDate4" value="<?php echo date('Y-m-d', time())?>" />
+	<layout.toolbarItem action="$dg.addToTable({url: '<?php echo BASE_REQUEST . '/dtable/add'; ?>?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass', 'tableField2': 'startClassDate', 'tableFieldSource2': '#startStudyDate4'}); setTimeout(function(){$dg.reload();}, 1000);" icon="add" />
+	<br />
+	<span>Chuyển từ lớp: </span>
+	<form.combobox label="Chọn lớp" id="cmbClass3" name="classId"
+		sql="<?php echo @$class_sql;?>"
+			layout="category-select-list"></form.combobox>
+	<span> sang lớp: </span>
+	<edu.courseSelector id="cmbClass2" name="classId" /><span>Ngày: </span>
+			<input name="startStudyDate2" type="date" id="startStudyDate" value="<?php echo date('Y-m-d', time())?>" />
+	<layout.toolbarItem action="$dg.addToTable({url: '<?php echo BASE_REQUEST . '/dtable/add'; ?>?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass2', 'tableField2': 'startClassDate', 'tableFieldSource2': '#startStudyDate'}); $dg.addToTable({url: '<?php echo BASE_REQUEST . '/dtable/update'; ?>?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass3', 'tableField2': 'endClassDate', 'tableFieldSource2': '#startStudyDate'}); setTimeout(function(){$dg.reload();}, 1000);" icon="add" />
+	<br />
+	<span>Dừng học lớp: </span>
+	<form.combobox label="Chọn lớp" id="cmbClass4" name="classId"
+		sql="<?php echo @$class_sql;?>"
+			layout="category-select-list"></form.combobox><span>Ngày: </span>
+			<input name="startStudyDate3" type="date" id="startStudyDate3" value="<?php echo date('Y-m-d', time())?>" />
+	<layout.toolbarItem action="$dg.addToTable({url: '<?php echo BASE_REQUEST . '/dtable/update'; ?>?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass4', 'tableField2': 'endClassDate', 'tableFieldSource2': '#startStudyDate3'}); setTimeout(function(){$dg.reload();}, 1000);" icon="add" />
+</easyui.layout.panel>
+<!-- Hết nghiệp vụ xếp lớp học sinh -->
 		<div id="student-detail"></div>
 	</div>
 	<div style="clear:both;"></div>
@@ -258,33 +284,8 @@ endif; ?>
 			});
 			
 		}
-		/* TODO: Xử lý khi chọn môn học thì lọc ra các lớp */ 
-		setTimeout(
-			function() {
-				jQuery('#searchSubject').change(function(e){
-					var subjectId = e.target.value;
-					console.log(subjectId);
-				});
-				$('#selected_class').click(function(){
-					$('#selected_class').text('');
-					$('#searchClassIds').val('');
-					selected_class = null;
-					searchStudent();
-					return false;
-				});
-			},
-			1000
-		)
 		
 	</script>
-	<style>
-		.hidden-level {
-			display: none;
-		}
-		.hidden-subjectId {
-			display: none;
-		}
-	</style>
 	<script type="text/javascript">
 	<![CDATA[
 	function searchClasses() {
@@ -296,14 +297,6 @@ endif; ?>
 				'status': '#searchStatus'
 			}
 		});
-	}
-	selected_class = null;
-	function selectClassSelector(row) {
-		selected_class = row;
-		$('#selected_class').text(row.name + ' - (Bỏ chọn)');
-		$('#searchClassIds').val(row.id);
-		$('#selected_class').attr('title', row.name);
-		searchStudent();
 	}
 
 	function studentRowStyler(index, row) {
@@ -326,7 +319,6 @@ endif; ?>
 			var currentDate = new Date();
 			return (currentDate.getTime() - studentDate.getTime() > 365 * 24 * 3600 * 1000) ?  'color: grey;': '';
 		} else {
-			console.log(style);
 			return style;
 		}
 	}

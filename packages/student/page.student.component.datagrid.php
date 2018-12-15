@@ -1,10 +1,15 @@
 <!-- Danh sách học sinh  -->
 <?php if(!isset($filters)):
 	$filters = array('online' => 0);
-endif; ?>
+endif;
+if(!isset($defaultAdd)) {
+	$defaultAdd = $filters;
+}
+?>
 <script>
 <![CDATA[
 	var studentDefaultFilters = <?php echo json_encode($filters); ?>;
+	var studentDefaultAdd = <?php echo json_encode($defaultAdd); ?>;
 ]]>
 </script>
 <dg.dataGrid id="dg" title="Quản lý học sinh" scriptable="true" layout="easyui/datagrid/datagrid" 
@@ -49,12 +54,14 @@ endif; ?>
 			<form.combobox label="Người phụ trách" id="searchAssignId" name="assignId"
 				sql="{teacher_sql}" onChange="searchStudent();"
 				layout="category-select-list"></form.combobox>
+			<?php if(!isset($filters['type'])): ?>
 			<select name="type" id="searchType" onChange="searchStudent();">
 				<option value="">Phân loại</option>
 				<option value="1">Đang học</option>
 				<option value="0">Tiềm năng</option>
 				<option value="2">Lâu năm</option>
 			</select>
+			<?php endif;?>
 			<select name="rating" id="searchRating" onChange="searchStudent();">
 				<option value="">Xếp hạng</option>
 				<option value="0">Chưa xếp hạng</option>
@@ -64,16 +71,18 @@ endif; ?>
 				<option value="4">Giỏi</option>
 				<option value="5">Xuất Sắc</option>
 			</select>
+			<?php if(!isset($filters['status'])): ?>
 			<select name="status" id="searchStatus" onChange="searchStudent();">
 				<option value="">Trạng thái</option>
-				<option value="0">Đang học</option>
-				<option value="1">Dừng học</option>
+				<option value="1">Đang học</option>
+				<option value="0">Dừng học</option>
 			</select>
+		<?php endif;?>
 			<input type="submit" style="display: none;" value="Tìm" />
 			<layout.toolbarItem id="searchButton" action="searchStudent();" icon="search" />
 			
 			<br />
-			<layout.toolbarItem action="$dg.add(studentDefaultFilters)" icon="add" />
+			<layout.toolbarItem action="$dg.add(studentDefaultAdd)" icon="add" />
 			<layout.toolbarItem action="$dg.edit()" icon="edit" />
 			<layout.toolbarItem action="$dg.del()" icon="remove" />
 			<layout.toolbarItem action="$dg.detail({url: '{url /student/detail}', 'gridField': 'id', 'action': 'render', 'renderRegion': '#student-detail'}); $dg.detail(function(row) { selectClass(row); });" icon="sum" />
