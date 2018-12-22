@@ -4,19 +4,19 @@
 			table="advice" width="1200px" height="450px" nowrap="true"
 			rowStyler="adviceRowStyler">
 		<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
+		<dg.dataGridItem field="title" width="320">Tiêu đề</dg.dataGridItem>
 		<dg.dataGridItem field="type" width="120" formatter="adviceTypeFormatter">Loại</dg.dataGridItem>
 		<dg.dataGridItem field="subjectName" width="220">Phần mềm</dg.dataGridItem>
 		<dg.dataGridItem field="className" width="220">Khóa học</dg.dataGridItem>
 		<dg.dataGridItem field="studentName" width="220">Học sinh</dg.dataGridItem>
 		<dg.dataGridItem field="phone" width="220">Điện thoại</dg.dataGridItem>
-		<dg.dataGridItem field="title" width="320">Tiêu đề</dg.dataGridItem>
 		<dg.dataGridItem field="adviceName" width="220">Tư vấn viên</dg.dataGridItem>
 		<dg.dataGridItem field="time" width="220">Thời gian</dg.dataGridItem>
 		<dg.dataGridItem field="status" width="220" formatter="adviceStatusFormatter">Trạng thái</dg.dataGridItem>
 		<layout.toolbar id="dg_toolbar">
 			<hform id="dg_search">
-				<edu.courseSelector name="classId" id="searchClass" onChange="pzk.elements.dg.search({'fields': {'classId' : '#searchClass', 'studentId': '#searchStudent' }})" />
-				<edu.studentSelector name="studentId" id="searchStudent" onChange="pzk.elements.dg.search({'fields': {'classId' : '#searchClass', 'studentId': '#searchStudent' }})" />
+				<edu.courseSelector name="classId" id="searchClass" defaultFilters='{"online": 1, "status": 1}' onChange="pzk.elements.dg.search({'fields': {'classId' : '#searchClass', 'studentId': '#searchStudent' }})" />
+				<edu.studentSelector name="studentId" id="searchStudent" defaultFilters='{"online": 1}' onChange="pzk.elements.dg.search({'fields': {'classId' : '#searchClass', 'studentId': '#searchStudent' }})" />
 				<layout.toolbarItem action="$dg.search({'fields': {'classId' : '#searchClass', 'studentId': '#searchStudent' }})" icon="search" />
 				<layout.toolbarItem action="$dg.add(); $studentSelector.resetValue();$courseSelector.resetValue();" icon="add" />
 				<layout.toolbarItem action="$dg.edit(); $studentSelector.loadValue();$courseSelector.loadValue();" icon="edit" />
@@ -40,7 +40,7 @@
 				<frm.formItem 
 					type="user-defined"
 					name="studentId" required="false" validatebox="false" label="Học sinh">
-				<edu.studentSelector name="studentId" id="studentSelector" />
+				<edu.studentSelector name="studentId" id="studentSelector" defaultFilters='{"online": 1}' />
 			</frm.formItem>
 				<frm.formItem type="date" name="time" required="false" label="" />
 				<frm.formItem type="user-defined" name="subjectId" required="false" label="Môn học">
@@ -49,7 +49,7 @@
 								layout="category-select-list"></form.combobox>
 				</frm.formItem>
 				<frm.formItem type="user-defined" name="classId" required="false" label="Khóa học">
-					<edu.courseSelector id="courseSelector" name="classId" online="1" />
+					<edu.courseSelector id="courseSelector" name="classId" defaultFilters='{"online": 1, "status": 1}' />
 				</frm.formItem>
 				<frm.formItem type="user-defined" name="adviceId" required="false" label="Giáo viên">
 					<form.combobox name="adviceId"

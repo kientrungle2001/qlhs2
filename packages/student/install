@@ -10,6 +10,7 @@ copy(PKG_DIR . DS . 'page.student.online.php', BASE_DIR . '/app/qlhs/pages/grid/
 copy(PKG_DIR . DS . 'page.student.center.php', BASE_DIR . '/app/qlhs/pages/grid/student/center.php');
 copy(PKG_DIR . DS . 'page.student.unclassed.php', BASE_DIR . '/app/qlhs/pages/grid/student/unclassed.php');
 copy(PKG_DIR . DS . 'page.student.classed.php', BASE_DIR . '/app/qlhs/pages/grid/student/classed.php');
+copy(PKG_DIR . DS . 'page.student.ontest.php', BASE_DIR . '/app/qlhs/pages/grid/student/ontest.php');
 copy(PKG_DIR . DS . 'page.student.potential.php', BASE_DIR . '/app/qlhs/pages/grid/student/potential.php');
 copy(PKG_DIR . DS . 'page.student.used.php', BASE_DIR . '/app/qlhs/pages/grid/student/used.php');
 copy(PKG_DIR . DS . 'page.student.familiar.php', BASE_DIR . '/app/qlhs/pages/grid/student/familiar.php');
@@ -19,10 +20,16 @@ if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/student/component')) {
 }
 
 copy(PKG_DIR . DS . 'page.student.component.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/student/component/datagrid.php');
-copy(PKG_DIR . DS . 'page.student.component.class_selector.php', BASE_DIR . '/app/qlhs/pages/grid/student/component/class_selector.php');
 copy(PKG_DIR . DS . 'page.student.component.classify_student.php', BASE_DIR . '/app/qlhs/pages/grid/student/component/classify_student.php');
 
 // Student Selector
 copy(PKG_DIR . DS . 'class.StudentSelector.php', BASE_DIR . '/objects/edu/StudentSelector.php');
 copy(PKG_DIR . DS . 'class.StudentSelector.js', BASE_DIR . '/js/edu/studentSelector.js');
 copy(PKG_DIR . DS . 'edu.student.selector.php', BASE_DIR . '/default/layouts/edu/student/selector.php');
+
+if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/student/online')) {
+    mkdir(BASE_DIR . '/app/qlhs/pages/grid/student/online');
+}
+
+copy(PKG_DIR . DS . 'page.student.online.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/student/online/datagrid.php');
+copy(PKG_DIR . DS . 'page.student.online.classify_student.php', BASE_DIR . '/app/qlhs/pages/grid/student/online/classify_student.php');

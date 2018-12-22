@@ -81,7 +81,8 @@ class PzkOrderController extends PzkBaseController {
 			'address' => $_REQUEST['address'],
 			'reason' => $_REQUEST['reason'],
 			'additional' => $_REQUEST['additional'],
-			'invoiceNum' => $_REQUEST['invoiceNum']
+			'invoiceNum' => $_REQUEST['invoiceNum'],
+			'studentId'	=>	$_REQUEST['studentId']
 		);
 		$orderId = _db()->insert('general_order')
 				->fields(implode(',', array_keys($order)))

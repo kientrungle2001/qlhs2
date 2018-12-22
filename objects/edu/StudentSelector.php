@@ -38,10 +38,12 @@ class PzkEduStudentSelector extends PzkObject {
 		<dg.dataGridItem field="note" width="140">Ghi chú</dg.dataGridItem>
 		<dg.dataGridItem field="assignName" width="140">Phụ trách</dg.dataGridItem>
 		<layout.toolbar id="dg_student_'.$this->id.'_toolbar">
-			<hform id="dg_search" onsubmit="pzk.elements.'.$this->id.'.searchStudent(); return false;">
+			<hform id="dg_search_'.$this->id.'" onsubmit="pzk.elements.'.$this->id.'.searchStudent(); return false;">
 				<strong>Tên học sinh: </strong><form.textField width="120px" name="name" id="searchName_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();" />
 				<strong> SĐT: </strong><form.textField width="80px" name="phone" id="searchPhone_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();" />
-				<edu.courseSelector id="searchClassIds_'.$this->id.'" name="classIds" onChange="pzk.elements.'.$this->id.'.searchStudent();" />
+				<edu.courseSelector id="searchClassIds_'.$this->id.'" 
+						name="classIds" onChange="pzk.elements.'.$this->id.'.searchStudent();"
+						defaultFilters=\''.@$this->defaultFilters.'\' />
 				<form.combobox label="Chọn kỳ thanh toán" id="searchPeriod_'.$this->id.'" name="periodId"
 					sql="'.$payment_period_sql.'" layout="category-select-list" onChange="pzk.elements.'.$this->id.'.searchStudent();"></form.combobox>
 				<form.combobox label="Chọn kỳ chưa thanh toán" id="searchnotlikePeriod_'.$this->id.'" name="notlikeperiodId"
@@ -71,8 +73,9 @@ class PzkEduStudentSelector extends PzkObject {
 				</select>
 				<select name="classed" id="searchClassed_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();">
 					<option value="">Xếp lớp</option>
-					<option value="0">Đã xếp lớp</option>
-					<option value="-1">Chờ xếp lớp</option>
+					<option value="1">Đã xếp lớp</option>
+					<option value="0">Chờ xếp lớp</option>
+					<option value="-1">Thi đầu vào</option>
 				</select>
 				<select name="type" id="searchType_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();">
 					<option value="">Phân loại</option>

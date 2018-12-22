@@ -30,19 +30,26 @@ setTimeout(
 				<ul>
 					<li><a href="{url /student/classed}">Đã xếp lớp</a></li>
 					<li><a href="{url /student/unclassed}">Danh sách chờ</a></li>
+					<li><a href="{url /student/ontest}">Test đầu vào</a>
+					<ul>
+						<li><a href="{url /test/schedule}">Lịch hẹn thi đầu vào</a></li>
+					</ul>
+					</li>
 				</ul>
 			</li>
 			<li>
 				<a href="{url /student/online}">Trực tuyến</a>
 				<ul>
-					<li><a href="{url /student/potential}">Tiềm năng</a></li>
+					<li><a href="{url /student/potential}">Tiềm năng</a>
+						<ul>
+							<li><a href="{url /advice}">Tư vấn</a></li>
+						</ul>
+					</li>
 					<li><a href="{url /student/used}">Đang sử dụng</a></li>
 					<li><a href="{url /student/familiar}">Thân thiết</a></li>
 				</ul>				
 			</li>
-			<li>
-				<a href="{url /advice}">Tư vấn</a>
-			</li>
+			
 		</ul>
 	</li>
 	<li>
@@ -68,13 +75,23 @@ setTimeout(
 		</ul>	
 	</li>
 	<li>
-		<a href="{url /teacher}">Giáo viên</a>	
+		<a href="{url /teacher}">Giáo viên</a>
+		<ul>
+			<li><a href="{url /teacher/lecturer}">Giảng viên</a></li>
+			<li><a href="{url /teacher/tutor}">Trợ giảng</a></li>
+		</ul>	
 	</li>
 	<li>
 		<a href="{url /room}">Phòng học</a>	
 	</li>
 	<li>
 		<a href="{url /test}">Bài thi</a>	
+	</li>
+	<li>
+		<a href="{url /employee}">Nhân viên</a>	
+	</li>
+	<li>
+		<a href="{url /partner}">Đối tác</a>	
 	</li>
 	<li>
 		<a href="#">Trung tâm</a>

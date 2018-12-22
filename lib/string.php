@@ -17,21 +17,21 @@ function str_ucfirst($str) {
 }
 
 function khongdau($str) {
-    $str = preg_replace("/(‡|·|?|?|„|‚|?|?|?|?|?|a|?|?|?|?|?)/", 'a', $str);
-    $str = preg_replace("/(Ë|È|?|?|?|Í|?|?|?|?|?)/", 'e', $str);
-    $str = preg_replace("/(Ï|Ì|?|?|i)/", 'i', $str);
-    $str = preg_replace("/(Ú|Û|?|?|ı|Ù|?|?|?|?|?|o|?|?|?|?|?)/", 'o', $str);
-    $str = preg_replace("/(˘|˙|?|?|u|u|?|?|?|?|?)/", 'u', $str);
-    $str = preg_replace("/(?|˝|?|?|?)/", 'y', $str);
+    $str = preg_replace("/(ÔøΩ|ÔøΩ|?|?|ÔøΩ|ÔøΩ|?|?|?|?|?|a|?|?|?|?|?)/", 'a', $str);
+    $str = preg_replace("/(ÔøΩ|ÔøΩ|?|?|?|ÔøΩ|?|?|?|?|?)/", 'e', $str);
+    $str = preg_replace("/(ÔøΩ|ÔøΩ|?|?|i)/", 'i', $str);
+    $str = preg_replace("/(ÔøΩ|ÔøΩ|?|?|ÔøΩ|ÔøΩ|?|?|?|?|?|o|?|?|?|?|?)/", 'o', $str);
+    $str = preg_replace("/(ÔøΩ|ÔøΩ|?|?|u|u|?|?|?|?|?)/", 'u', $str);
+    $str = preg_replace("/(?|ÔøΩ|?|?|?)/", 'y', $str);
     $str = preg_replace("/(d)/", 'd', $str);
 
-    $str = preg_replace("/(¿|¡|?|?|√|¬|?|?|?|?|?|A|?|?|?|?|?)/", 'A', $str);
-    $str = preg_replace("/(»|…|?|?|?| |?|?|?|?|?)/", 'E', $str);
-    $str = preg_replace("/(Ã|Õ|?|?|I)/", 'I', $str);
-    $str = preg_replace("/(“|”|?|?|’|‘|?|?|?|?|?|O|?|?|?|?|?)/", 'O', $str);
-    $str = preg_replace("/(Ÿ|⁄|?|?|U|U|?|?|?|?|?)/", 'U', $str);
-    $str = preg_replace("/(?|›|?|?|?)/", 'Y', $str);
-    $str = preg_replace("/(–)/", 'D', $str);
+    $str = preg_replace("/(ÔøΩ|ÔøΩ|?|?|ÔøΩ|ÔøΩ|?|?|?|?|?|A|?|?|?|?|?)/", 'A', $str);
+    $str = preg_replace("/(ÔøΩ|ÔøΩ|?|?|?|ÔøΩ|?|?|?|?|?)/", 'E', $str);
+    $str = preg_replace("/(ÔøΩ|ÔøΩ|?|?|I)/", 'I', $str);
+    $str = preg_replace("/(ÔøΩ|ÔøΩ|?|?|ÔøΩ|ÔøΩ|?|?|?|?|?|O|?|?|?|?|?)/", 'O', $str);
+    $str = preg_replace("/(ÔøΩ|ÔøΩ|?|?|U|U|?|?|?|?|?)/", 'U', $str);
+    $str = preg_replace("/(?|ÔøΩ|?|?|?)/", 'Y', $str);
+    $str = preg_replace("/(ÔøΩ)/", 'D', $str);
     //$str = str_replace(" ", "-", str_replace("&*#39;","",$str));
     return $str;
 }
@@ -78,7 +78,7 @@ function vietdecode($value)
 	$value = str_replace("·∫∂", "A", $value);
 	#---------------------------------a
 	$value = str_replace("√°", "a", $value);
-	$value = str_replace("√ ", "a", $value);
+	$value = str_replace("ÔøΩ ", "a", $value);
 	$value = str_replace("·∫£", "a", $value);
 	$value = str_replace("√£", "a", $value);
 	$value = str_replace("·∫°", "a", $value);
@@ -89,7 +89,7 @@ function vietdecode($value)
 	$value = str_replace("√Ä", "A", $value);
 	$value = str_replace("·∫¢", "A", $value);
 	$value = str_replace("√É", "A", $value);
-	$value = str_replace("·∫ ", "A", $value);
+	$value = str_replace("ÔøΩ ", "A", $value);
 	$value = str_replace("√Ç", "A", $value);
 	$value = str_replace("ƒÇ", "A", $value);
 	#---------------------------------e^
@@ -152,7 +152,7 @@ function vietdecode($value)
 	$value = str_replace("·ªö", "O", $value);
 	$value = str_replace("·ªú", "O", $value);
 	$value = str_replace("·ªû", "O", $value);
-	$value = str_replace("·ª ", "O", $value);
+	$value = str_replace("ÔøΩ ", "O", $value);
 	$value = str_replace("·ª¢", "O", $value);
 	#---------------------------------u*
 	$value = str_replace("·ª©", "u", $value);
@@ -197,7 +197,7 @@ function vietdecode($value)
 	$value = str_replace("√ï", "O", $value);
 	$value = str_replace("·ªå", "O", $value);
 	$value = str_replace("√î", "O", $value);
-	$value = str_replace("∆ ", "O", $value);
+	$value = str_replace("ÔøΩ ", "O", $value);
 	#---------------------------------u
 	$value = str_replace("√∫", "u", $value);
 	$value = str_replace("√π", "u", $value);
@@ -233,4 +233,40 @@ function replace_path($path) {
 
 function html_escape($str) {
 	return htmlspecialchars($str, ENT_COMPAT, 'utf-8');
+}
+
+/**
+	* @* @param String name T√™n tr∆∞·ªùng
+	*	@* @param String label Nh√£n
+	*	@* @param mixed options M·∫£ng ho·∫∑c Boolean c√°c thu·ªôc t√≠nh b·ªï sung, n·∫øu l√† boolean th√¨ x√°c ƒë·ªãnh thu·ªôc t√≠nh required
+ */
+function form_input($name, $label, $options = []) {
+	$str = '<frm.formItem name="'.$name.'" label="'.html_escape($label).'"';
+	if(is_bool($options) && $options) {
+		$str .= ' required="true" validatebox="true"';
+	} else {
+		foreach($options as $key => $val) {
+			$str .= ' ' . $key.'="'.html_escape($val).'" ';
+		}
+	}
+	
+	$str .= ' />';
+	return $str;
+}
+function form_inputs($arrs) {
+	$str = '';
+	foreach($arrs as $arr) {
+		$str .= form_input($arr[0], $arr[1], isset($arr[2]) ? $arr[2] : []);
+	}
+	return $str;
+}
+
+function form_combobox($name, $label, $sql) {
+	return '<frm.formItem type="user-defined" name="'.$name.'" required="false" label="'.html_escape($label).'">
+	<form.combobox 
+	name="'.$name.'"
+	sql="'.html_escape($sql).'"
+	label="'.html_escape($label).'"
+		layout="category-select-list" />
+		</frm.formItem>';
 }

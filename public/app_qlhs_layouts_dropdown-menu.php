@@ -30,19 +30,26 @@ setTimeout(
 				<ul>
 					<li><a href="<?php echo BASE_REQUEST . '/student/classed'; ?>">Đã xếp lớp</a></li>
 					<li><a href="<?php echo BASE_REQUEST . '/student/unclassed'; ?>">Danh sách chờ</a></li>
+					<li><a href="<?php echo BASE_REQUEST . '/student/ontest'; ?>">Test đầu vào</a>
+					<ul>
+						<li><a href="<?php echo BASE_REQUEST . '/test/schedule'; ?>">Lịch hẹn thi đầu vào</a></li>
+					</ul>
+					</li>
 				</ul>
 			</li>
 			<li>
 				<a href="<?php echo BASE_REQUEST . '/student/online'; ?>">Trực tuyến</a>
 				<ul>
-					<li><a href="<?php echo BASE_REQUEST . '/student/potential'; ?>">Tiềm năng</a></li>
+					<li><a href="<?php echo BASE_REQUEST . '/student/potential'; ?>">Tiềm năng</a>
+						<ul>
+							<li><a href="<?php echo BASE_REQUEST . '/advice'; ?>">Tư vấn</a></li>
+						</ul>
+					</li>
 					<li><a href="<?php echo BASE_REQUEST . '/student/used'; ?>">Đang sử dụng</a></li>
 					<li><a href="<?php echo BASE_REQUEST . '/student/familiar'; ?>">Thân thiết</a></li>
 				</ul>				
 			</li>
-			<li>
-				<a href="<?php echo BASE_REQUEST . '/advice'; ?>">Tư vấn</a>
-			</li>
+			
 		</ul>
 	</li>
 	<li>
@@ -68,13 +75,23 @@ setTimeout(
 		</ul>	
 	</li>
 	<li>
-		<a href="<?php echo BASE_REQUEST . '/teacher'; ?>">Giáo viên</a>	
+		<a href="<?php echo BASE_REQUEST . '/teacher'; ?>">Giáo viên</a>
+		<ul>
+			<li><a href="<?php echo BASE_REQUEST . '/teacher/lecturer'; ?>">Giảng viên</a></li>
+			<li><a href="<?php echo BASE_REQUEST . '/teacher/tutor'; ?>">Trợ giảng</a></li>
+		</ul>	
 	</li>
 	<li>
 		<a href="<?php echo BASE_REQUEST . '/room'; ?>">Phòng học</a>	
 	</li>
 	<li>
 		<a href="<?php echo BASE_REQUEST . '/test'; ?>">Bài thi</a>	
+	</li>
+	<li>
+		<a href="<?php echo BASE_REQUEST . '/employee'; ?>">Nhân viên</a>	
+	</li>
+	<li>
+		<a href="<?php echo BASE_REQUEST . '/partner'; ?>">Đối tác</a>	
 	</li>
 	<li>
 		<a href="#">Trung tâm</a>

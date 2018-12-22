@@ -2,6 +2,7 @@
 <dg.dataGrid id="dg" title="Quản lý Bài thi" table="test" width="400px" nowrap="false" height="450px">
 	<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
 	<dg.dataGridItem field="name" width="220" nowap="false">Bài thi</dg.dataGridItem>
+	<dg.dataGridItem field="code" width="120" nowap="false">Mã</dg.dataGridItem>
 	<dg.dataGridItem field="subjectName" width="100">Môn</dg.dataGridItem>
 	<dg.dataGridItem field="level" width="40">Lớp</dg.dataGridItem>
 	<dg.dataGridItem field="status" width="40">TT</dg.dataGridItem>
@@ -21,6 +22,7 @@
 		<frm.form gridId="dg">
 			<frm.formItem type="hidden" name="id" required="false" label="" />
 			<frm.formItem name="name" required="true" validatebox="true" label="Tên bài thi" />
+			<frm.formItem name="code" required="true" validatebox="true" label="Mã" />
 			<frm.formItem name="level" required="true" validatebox="true" label="Lớp" />
 			<frm.formItem 
 				type="user-defined"

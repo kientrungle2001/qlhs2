@@ -3,7 +3,7 @@
 ?>
 <div id="student_detail_div">
 <!-- Chi tiết học sinh -->
-<<?php echo @$btabs;?> style="width:600px;height:auto;">
+<div class="easyui-tabs" style="width:600px;height:auto;">
 <div class="student_detail" title="Chi tiết">
 <form>
 	<div class="left-column">
@@ -55,17 +55,20 @@
 			<frm.formItem type="hidden" name="id" required="false" label="" />
 			<frm.formItem type="user-defined" name="type" required="false" label="Loại hình">
 				<select name="type">
-					<option value="0">Cuộc gọi</option>
+				<option value="5">Hẹn thi đầu vào</option>	
+				<option value="0">Cuộc gọi</option>
 					<option value="1">Tin nhắn</option>
 					<option value="2">Facebook</option>
 					<option value="3">Email</option>
 					<option value="4">Gặp gỡ</option>
+					
 				</select>
 			</frm.formItem>
 			<frm.formItem name="title" required="true" validatebox="true" label="Tiêu đề" />
 			<frm.formItem name="content" required="true" validatebox="true" label="Nội dung" />
 			<frm.formItem type="hidden" name="studentId" value="{$student['id']}" required="false" label="" />
-			<frm.formItem type="datetime-local" name="time" value="{$current_date}" required="false" label="" />
+			<frm.formItem type="datetime-local" name="time" 
+					value="{$current_date}" required="false" label="Ngày tư vấn&lt;br /&gt;hẹn thi đầu vào" />
 			<frm.formItem type="user-defined" name="subjectId" required="false" label="Môn học">
 				<form.combobox name="subjectId"
 						sql="$subject_sql"
@@ -89,6 +92,66 @@
 					<option value="3">Đồng ý</option>
 				</select>
 			</frm.formItem>
+		</frm.form>
+	</wdw.dialog>
+</dg.dataGrid>
+EOD;
+	$adviceGrid = pzk_parse($advice);
+	$adviceGrid->display();
+	?>
+</div>
+<div title="Lịch hẹn thi đầu vào">
+<?php
+	$rand = rand(0, 1000000);
+	$advice = <<<EOD
+<dg.dataGrid id="dg_test_schedule_{$rand}" title="Lịch hẹn thi đầu vào" table="test_schedule" width="600px" height="250px" defaultFilters='{"studentId": {$student['id']}}' nowrap="false">
+	
+	<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
+	<dg.dataGridItem field="className" width="120">Lớp</dg.dataGridItem>
+	<dg.dataGridItem field="testDate" width="120">Ngày test</dg.dataGridItem>
+	<dg.dataGridItem field="testTime" width="120">Thời gian</dg.dataGridItem>
+	<dg.dataGridItem field="mark" width="120">Điểm số</dg.dataGridItem>
+	<dg.dataGridItem field="rating" width="120">Xếp hạng</dg.dataGridItem>
+	<dg.dataGridItem field="note" width="120">Ghi chú</dg.dataGridItem>
+	<dg.dataGridItem field="status" width="120">Trạng thái</dg.dataGridItem>
+	<layout.toolbar id="dg_test_schedule_{$rand}_toolbar">
+		<layout.toolbarItem action="pzk.elements.dg_test_schedule_{$rand}.add(); jQuery('#fm-dg_test_schedule_{$rand} [name=studentId]').val('{$student['id']}');" icon="add" />
+		<layout.toolbarItem action="pzk.elements.dg_test_schedule_{$rand}.edit()" icon="edit" />
+		<layout.toolbarItem action="pzk.elements.dg_test_schedule_{$rand}.del()" icon="remove" />
+	</layout.toolbar>
+	<wdw.dialog gridId="dg_test_schedule_{$rand}" width="700px" height="auto" title="Phần mềm">
+		<frm.form gridId="dg_test_schedule_{$rand}">
+			<frm.formItem type="hidden" name="id" required="false" label="" />
+			<frm.formItem name="title" required="true" validatebox="true" label="Tiêu đề" />
+			<frm.formItem name="note" required="false" validatebox="false" label="Ghi chú" />
+			<frm.formItem type="hidden" name="studentId" value="{$student['id']}" required="false" label="" />
+			<frm.formItem type="date" name="testDate" 
+					value="{$current_date}" required="false" label="Ngày hẹn" />
+					<frm.formItem type="time" name="testTime" 
+					value="18:00:00" required="false" label="Giờ thi" />
+			<frm.formItem type="user-defined" name="subjectId" required="false" label="Môn học">
+				<form.combobox name="subjectId"
+						sql="$subject_center_sql"
+							layout="category-select-list"></form.combobox>
+			</frm.formItem>
+			<frm.formItem type="user-defined" name="classId" required="false" label="Khóa học">
+				<form.combobox name="classId"
+						sql="$class_ontest_sql"
+							layout="category-select-list"></form.combobox>
+			</frm.formItem>
+			<frm.formItem type="user-defined" name="adviceId" required="false" label="Phụ trách">
+				<form.combobox name="adviceId"
+						sql="$teacher_sql"
+							layout="category-select-list"></form.combobox>
+			</frm.formItem>
+			<frm.formItem type="user-defined" name="status" required="false" label="Trạng thái">
+				<select name="status">
+					<option value="0">Chưa thi</option>
+					<option value="1">Đã thi</option>
+					<option value="2">Đã có kết quả</option>
+				</select>
+			</frm.formItem>
+			<frm.formItem name="note" required="false" validatebox="false" label="Điểm số" />
 		</frm.form>
 	</wdw.dialog>
 </dg.dataGrid>
@@ -170,6 +233,22 @@ EOD;
 	$adviceGrid->display();
 	?>
 </div>
+<div title="Các lớp đã học">
+<?php
+	$rand = rand(0, 1000000);
+	$advice = <<<EOD
+<dg.dataGrid id="dg_class_student{$rand}" title="Các lớp đã học" table="class_student" width="600px" height="250px" defaultFilters='{"studentId": {$student['id']}}' nowrap="false">
+	
+	<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
+	<dg.dataGridItem field="className" width="120">Lớp</dg.dataGridItem>
+	<dg.dataGridItem field="startDate" width="120">Ngày học</dg.dataGridItem>
+	<dg.dataGridItem field="endDate" width="120">Ngày kết thúc</dg.dataGridItem>
+</dg.dataGrid>
+EOD;
+	$adviceGrid = pzk_parse($advice);
+	$adviceGrid->display();
+	?>
+</div>
 <!--
 <div title="Mượn sách">
 Mượn sách
@@ -178,10 +257,9 @@ Mượn sách
 Quên đồ
 </div>
 -->
-</<?php echo @$etabs;?>>
-
+</div>
 <!-- Điểm danh - Học phí -->
-<div class="easyui-tabs" style="width:600px;height:auto;">
+<div class="easyui-tabs" style="width:600px;height:auto;<?php if($student['online'] == 1):?>display: none; height: 0; visibility: hidden;<?php endif;?>">
 <?php 
 
 $classIds = array();

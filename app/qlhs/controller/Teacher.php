@@ -2,6 +2,14 @@
 require_once dirname(__FILE__) . '/Base.php';
 class PzkTeacherController extends PzkBaseController {
 	public $grid = 'teacher';
+	
+	public function lecturerAction() {
+		$this->viewGrid('teacher/lecturer');
+	}
+	public function tutorAction() {
+		$this->viewGrid('teacher/tutor');
+	}
+	
 	public function loginAction() {
 		$page = $this->parse('login');
 		pzk_element('loginForm')->action = BASE_REQUEST . '/teacher/loginPost';

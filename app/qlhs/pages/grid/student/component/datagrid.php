@@ -5,6 +5,12 @@ endif;
 if(!isset($defaultAdd)) {
 	$defaultAdd = $filters;
 }
+if(!isset($defaultClassFilters)) {
+	$defaultClassFilters = array(
+		'status'	=>	1,
+		'online'	=>	0
+	);
+}
 ?>
 <script>
 <![CDATA[
@@ -18,6 +24,7 @@ if(!isset($defaultAdd)) {
 		rowStyler="studentRowStyler" defaultFilters='<?php echo json_encode($filters)?>'>
 	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
 	<dg.dataGridItem field="name" width="140">Tên học sinh</dg.dataGridItem>
+	<dg.dataGridItem field="code" width="80">Mã</dg.dataGridItem>
 	<dg.dataGridItem field="phone" width="80">Số điện thoại</dg.dataGridItem>
 	<!--dg.dataGridItem field="school" width="120">Trường</dg.dataGridItem-->
 	<dg.dataGridItem field="currentClassNames" width="100">Lớp</dg.dataGridItem>
@@ -25,13 +32,13 @@ if(!isset($defaultAdd)) {
 	<dg.dataGridItem field="periodNames" width="100">Kỳ thanh toán</dg.dataGridItem>
 	<dg.dataGridItem field="startStudyDate" width="100">Ngày vào học</dg.dataGridItem>
 	<dg.dataGridItem field="note" width="140">Ghi chú</dg.dataGridItem>
-	<dg.dataGridItem field="assignName" width="140">Phụ trách</dg.dataGridItem>
 	<!-- Toolbar cho danh sách học sinh -->
 	<layout.toolbar id="dg_toolbar">
 		<hform id="dg_search" onsubmit="searchStudent(); return false;">
 			<strong>Tên học sinh: </strong><form.textField width="120px" name="name" id="searchName" onChange="searchStudent();" />
 			<strong> SĐT: </strong><form.textField width="80px" name="phone" id="searchPhone" onChange="searchStudent();" />
-			<edu.courseSelector name="classIds" id="searchClassIds" onChange="searchStudent();" />
+			<strong>Mã: </strong><form.textField width="80px" name="code" id="searchCode" onChange="searchStudent();" />
+			<edu.courseSelector name="classIds" id="searchClassIds" onChange="searchStudent();" defaultFilters='<?php echo json_encode($defaultClassFilters)?>' />
 			<form.combobox label="Chọn kỳ thanh toán" id="searchPeriod" name="periodId"
 				sql="{payment_period_sql}" layout="category-select-list" onChange="searchStudent();"></form.combobox>
 			<form.combobox label="Chọn kỳ chưa thanh toán" id="searchnotlikePeriod" name="notlikeperiodId"
@@ -96,6 +103,7 @@ if(!isset($defaultAdd)) {
 		<frm.form gridId="dg">
 			<frm.formItem type="hidden" name="id" label="" />
 			<frm.formItem name="name" required="true" validatebox="true" label="Tên học sinh" />
+			<frm.formItem name="code" required="true" validatebox="true" label="Mã" />
 			<frm.formItem name="phone" label="Số điện thoại" />
 			<frm.formItem name="school"  label="Trường" />
 			<frm.formItem type="date" name="birthDate" label="Ngày sinh" />
@@ -140,6 +148,7 @@ if(!isset($defaultAdd)) {
 					<option value="">Chọn</option>
 					<option value="1">Đã xếp lớp</option>
 					<option value="0">Chờ xếp lớp</option>
+					<option value="-1">Kiểm tra đầu vào</option>
 				</select>
 			</frm.formItem>
 			<frm.formItem name="type" label="Phân loại" type="user-defined">

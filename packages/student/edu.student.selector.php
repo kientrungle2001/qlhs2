@@ -5,7 +5,7 @@ $name = $data->name;
 	<input class="ajax-reload-input" id="{data.id}" type="hidden" {attr name} {attr value} {attr onChange}/>
 	<span id="label-{data.id}" data-field="name" class="ajax-reload-label">(Trống)</span>
 </span>
-<a href="#" onclick="pzk.elements.{data.id}.showStudentSelectorDialog(); return false;">[Chọn Học sinh]</a>
+<a href="#" onclick='pzk.elements.{data.id}.showStudentSelectorDialog({prop defaultFilters}); return false;'>[Chọn Học sinh]</a>
 <a href="#" onclick="pzk.elements.{data.id}.resetStudentSelector(); return false;">[x Bỏ chọn]</a>
 <script>
 	function studentRowStyler(index, row) {

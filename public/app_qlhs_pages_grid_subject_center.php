@@ -3,7 +3,8 @@
 		<dg.dataGrid id="dg" title="Quản lý môn học" table="subject" width="350px" height="450px" defaultFilters='{"online": 0}'>
     <dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
     <dg.dataGridItem field="name" width="120">Môn học</dg.dataGridItem>
-    
+    <dg.dataGridItem field="code" width="120">Mã</dg.dataGridItem>
+
     <layout.toolbar id="dg_toolbar">
         <layout.toolbarItem action="$dg.add()" icon="add" />
         <layout.toolbarItem action="$dg.edit()" icon="edit" />
@@ -34,6 +35,7 @@
         <frm.form gridId="dg">
             <frm.formItem type="hidden" name="id" required="false" label="" />
             <frm.formItem name="name" required="true" validatebox="true" label="Môn học" />
+            <frm.formItem name="code" required="true" validatebox="true" label="Mã" />
         </frm.form>
     </wdw.dialog>
 </dg.dataGrid>

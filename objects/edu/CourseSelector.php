@@ -46,20 +46,30 @@ class PzkEduCourseSelector extends PzkObject {
 						onChange="pzk.elements.'.$this->id.'.searchCourse();"
 						sql="select id as value, 
 								name as label from `teacher` order by name ASC"
+						label="Chọn giáo viên"
 						layout="category-select-list"></form.combobox>
 				<form.combobox id="searchSubject_'.$this->id.'" name="subjectId"
 						onChange="pzk.elements.'.$this->id.'.searchCourse();"
 						sql="select id as value, 
 								name as label from `subject` order by name ASC"
+						label="Chọn môn học"
 						layout="category-select-list"></form.combobox>
 				<form.combobox id="searchLevel_'.$this->id.'" name="level"
 						onChange="pzk.elements.'.$this->id.'.searchCourse();"
 						sql="select distinct(level) as value, level as label from classes order by label asc"
+						label="Chọn khối"
 						layout="category-select-list"></form.combobox>
 				<form.combobox id="searchStatus_'.$this->id.'" name="status"
 						onChange="pzk.elements.'.$this->id.'.searchCourse();"
 						sql="select distinct(status) as value, status as label from classes order by label asc"
+						label="Chọn trạng thái"
 						layout="category-select-list"></form.combobox>
+				<select name="online" id="searchOnline_'.$this->id.'"
+						onChange="pzk.elements.'.$this->id.'.searchCourse();">
+					<option value="">Loại hình</option>
+					<option value="0">Trung tâm</option>
+					<option value="1">Trực tuyến</option>
+				</select>
 				<layout.toolbarItem id="searchButton_'.$this->id.'" action="$'.$this->id.'.searchCourse();" icon="search" />
 				<layout.toolbarItem action="$dg_course_'.$this->id.'.detail(function(row) { 
 					$'.$this->id.'.setValue(row.id);

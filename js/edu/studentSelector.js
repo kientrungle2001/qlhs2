@@ -6,15 +6,19 @@ PzkEduStudentSelector = PzkObj.pzkExt({
 		if(initialFilters) {
 			if(!this.initialFilters) {
 				this.initialFilters = initialFilters;
-				this.getDatagridObj().filters(initialFilters);
+				for(var k in initialFilters) {
+					var v = initialFilters[k];
+					$('#dg_search_' + this.id + ' [name='+k+']').val(v);
+				}
+				this.searchStudent();
 			}
 		}
 	},
 	closeStudentSelectorDialog: function() {
 		$('#dlg_student_'+this.id).dialog('close');
 	},
-	showDialog: function() {
-		return this.showStudentSelectorDialog();
+	showDialog: function(initialFilters) {
+		return this.showStudentSelectorDialog(initialFilters);
 	},
 	hideDialog: function () {
 		return this.closeStudentSelectorDialog();

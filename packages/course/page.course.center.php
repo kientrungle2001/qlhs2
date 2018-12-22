@@ -50,7 +50,7 @@
 	<!--dg.dataGridItem field="level" width="120">Trình độ</dg.dataGridItem-->
 	<dg.dataGridItem field="teacherName" width="120">Giáo viên</dg.dataGridItem>
 	<!--dg.dataGridItem field="teacher2Name" width="120">Giáo viên 2</dg.dataGridItem-->
-	<!--dg.dataGridItem field="roomName" width="100">Phòng</dg.dataGridItem-->
+	<dg.dataGridItem field="roomName" width="100">Phòng</dg.dataGridItem>
 	<dg.dataGridItem field="startDate" width="160">Ngày bắt đầu</dg.dataGridItem>
 	<dg.dataGridItem field="endDate" width="160">Ngày kết thúc</dg.dataGridItem>
 	<dg.dataGridItem field="amount" width="100">Học phí</dg.dataGridItem>
@@ -60,20 +60,24 @@
 		<hform id="dg_search">
 			<form.combobox 
 					id="searchTeacher" name="teacherId"
+					label="Chọn giáo viên"
 					sql="select id as value, 
 							name as label from `teacher` order by name ASC"
 					layout="category-select-list"></form.combobox>
 			<form.combobox 
 					id="searchSubject" name="subjectId"
+					label="Chọn môn học"
 					sql="select id as value, 
 							name as label from `subject` order by name ASC"
 					layout="category-select-list"></form.combobox>
 			<form.combobox 
 					id="searchLevel" name="level"
+					label="Chọn khối"
 					sql="select distinct(level) as value, level as label from classes order by label asc"
 					layout="category-select-list"></form.combobox>
 			<form.combobox 
 					id="searchStatus" name="status"
+					label="Chọn trạng thái"
 					sql="select distinct(status) as value, status as label from classes order by label asc"
 					layout="category-select-list"></form.combobox>
 			<layout.toolbarItem action="searchClasses()" icon="search" />

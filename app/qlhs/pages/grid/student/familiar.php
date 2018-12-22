@@ -16,11 +16,15 @@
 			'fontStyle' => '',
 			'assignId'		=>	''
 		));
+		$defaultClassFilters = array(
+			'status'	=>	1,
+			'online'	=>	1
+		);
 	?>
-	{include grid/student/component/datagrid}
+	{include grid/student/online/datagrid}
 	</div>
 	<div style="float:left; margin-left: 10px; margin-top: 0px; width: auto;">
-		{include grid/student/component/classify_student}
+		{include grid/student/online/classify_student}
 		<div id="student-detail"></div>
 	</div>
 	<div style="clear:both;"></div>

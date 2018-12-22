@@ -24,6 +24,12 @@ endif;
 if(!isset($defaultAdd)) {
 	$defaultAdd = $filters;
 }
+if(!isset($defaultClassFilters)) {
+	$defaultClassFilters = array(
+		'status'	=>	1,
+		'online'	=>	0
+	);
+}
 ?>
 <script>
 <![CDATA[
@@ -37,6 +43,7 @@ if(!isset($defaultAdd)) {
 		rowStyler="studentRowStyler" defaultFilters='<?php echo json_encode($filters)?>'>
 	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
 	<dg.dataGridItem field="name" width="140">Tên học sinh</dg.dataGridItem>
+	<dg.dataGridItem field="code" width="80">Mã</dg.dataGridItem>
 	<dg.dataGridItem field="phone" width="80">Số điện thoại</dg.dataGridItem>
 	<!--dg.dataGridItem field="school" width="120">Trường</dg.dataGridItem-->
 	<dg.dataGridItem field="currentClassNames" width="100">Lớp</dg.dataGridItem>
@@ -44,13 +51,13 @@ if(!isset($defaultAdd)) {
 	<dg.dataGridItem field="periodNames" width="100">Kỳ thanh toán</dg.dataGridItem>
 	<dg.dataGridItem field="startStudyDate" width="100">Ngày vào học</dg.dataGridItem>
 	<dg.dataGridItem field="note" width="140">Ghi chú</dg.dataGridItem>
-	<dg.dataGridItem field="assignName" width="140">Phụ trách</dg.dataGridItem>
 	<!-- Toolbar cho danh sách học sinh -->
 	<layout.toolbar id="dg_toolbar">
 		<hform id="dg_search" onsubmit="searchStudent(); return false;">
 			<strong>Tên học sinh: </strong><form.textField width="120px" name="name" id="searchName" onChange="searchStudent();" />
 			<strong> SĐT: </strong><form.textField width="80px" name="phone" id="searchPhone" onChange="searchStudent();" />
-			<edu.courseSelector name="classIds" id="searchClassIds" onChange="searchStudent();" />
+			<strong>Mã: </strong><form.textField width="80px" name="code" id="searchCode" onChange="searchStudent();" />
+			<edu.courseSelector name="classIds" id="searchClassIds" onChange="searchStudent();" defaultFilters='<?php echo json_encode($defaultClassFilters)?>' />
 			<form.combobox label="Chọn kỳ thanh toán" id="searchPeriod" name="periodId"
 				sql="<?php echo @$payment_period_sql;?>" layout="category-select-list" onChange="searchStudent();"></form.combobox>
 			<form.combobox label="Chọn kỳ chưa thanh toán" id="searchnotlikePeriod" name="notlikeperiodId"
@@ -115,6 +122,7 @@ if(!isset($defaultAdd)) {
 		<frm.form gridId="dg">
 			<frm.formItem type="hidden" name="id" label="" />
 			<frm.formItem name="name" required="true" validatebox="true" label="Tên học sinh" />
+			<frm.formItem name="code" required="true" validatebox="true" label="Mã" />
 			<frm.formItem name="phone" label="Số điện thoại" />
 			<frm.formItem name="school"  label="Trường" />
 			<frm.formItem type="date" name="birthDate" label="Ngày sinh" />
@@ -159,6 +167,7 @@ if(!isset($defaultAdd)) {
 					<option value="">Chọn</option>
 					<option value="1">Đã xếp lớp</option>
 					<option value="0">Chờ xếp lớp</option>
+					<option value="-1">Kiểm tra đầu vào</option>
 				</select>
 			</frm.formItem>
 			<frm.formItem name="type" label="Phân loại" type="user-defined">
@@ -196,23 +205,23 @@ if(!isset($defaultAdd)) {
 		<!-- Nghiệp vụ xếp lớp học sinh -->
 <easyui.layout.panel collapsible="true" title="Xếp lớp" width="100%">
 	<span>Xếp lớp: </span>
-	<edu.courseSelector id="cmbClass" name="classId" />
+	<edu.courseSelector id="cmbClass" name="classId" defaultFilters='{"status": 1, "online": 0}' />
 	<span>Ngày vào học: </span>
 	<input name="startStudyDate4" type="date" id="startStudyDate4" value="<?php echo date('Y-m-d', time())?>" />
 	<layout.toolbarItem action="$dg.addToTable({url: '<?php echo BASE_REQUEST . '/dtable/add'; ?>?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass', 'tableField2': 'startClassDate', 'tableFieldSource2': '#startStudyDate4'}); setTimeout(function(){$dg.reload();}, 1000);" icon="add" />
 	<br />
 	<span>Chuyển từ lớp: </span>
 	<form.combobox label="Chọn lớp" id="cmbClass3" name="classId"
-		sql="<?php echo @$class_sql;?>"
+		sql="<?php echo @$class_center_sql;?>"
 			layout="category-select-list"></form.combobox>
 	<span> sang lớp: </span>
-	<edu.courseSelector id="cmbClass2" name="classId" /><span>Ngày: </span>
+	<edu.courseSelector id="cmbClass2" name="classId" defaultFilters='{"status": 1, "online": 0}' /><span>Ngày: </span>
 			<input name="startStudyDate2" type="date" id="startStudyDate" value="<?php echo date('Y-m-d', time())?>" />
 	<layout.toolbarItem action="$dg.addToTable({url: '<?php echo BASE_REQUEST . '/dtable/add'; ?>?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass2', 'tableField2': 'startClassDate', 'tableFieldSource2': '#startStudyDate'}); $dg.addToTable({url: '<?php echo BASE_REQUEST . '/dtable/update'; ?>?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass3', 'tableField2': 'endClassDate', 'tableFieldSource2': '#startStudyDate'}); setTimeout(function(){$dg.reload();}, 1000);" icon="add" />
 	<br />
 	<span>Dừng học lớp: </span>
 	<form.combobox label="Chọn lớp" id="cmbClass4" name="classId"
-		sql="<?php echo @$class_sql;?>"
+		sql="<?php echo @$class_center_sql;?>"
 			layout="category-select-list"></form.combobox><span>Ngày: </span>
 			<input name="startStudyDate3" type="date" id="startStudyDate3" value="<?php echo date('Y-m-d', time())?>" />
 	<layout.toolbarItem action="$dg.addToTable({url: '<?php echo BASE_REQUEST . '/dtable/update'; ?>?table=class_student', 'gridField': 'studentId', 'tableField': 'classId', 'tableFieldSource': '#cmbClass4', 'tableField2': 'endClassDate', 'tableFieldSource2': '#startStudyDate3'}); setTimeout(function(){$dg.reload();}, 1000);" icon="add" />
