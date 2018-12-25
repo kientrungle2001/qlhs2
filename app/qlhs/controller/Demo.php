@@ -133,4 +133,10 @@ class PzkDemoController extends PzkController {
 	public function studentAction() {
 		$this->redirect('student/index');
 	}
+
+	public function helloAction() {
+		echo json_encode([
+			"msg" => "Hello"
+		]);
+	}
 }

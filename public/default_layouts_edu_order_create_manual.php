@@ -1,4 +1,4 @@
-<form method="post" action="{url /order/createbillpost}">
+<form method="post" action="<?php echo BASE_REQUEST . '/order/createordermanualpost'; ?>">
 <div class="order_wrapper">
 	<div class="order_header">
 		<div class="order_company">
@@ -13,7 +13,7 @@
 		</div>
 		<div class="order_date">
 			<div class="order_line">
-				<strong class="order_line_label order_line_label_header">Phiếu Chi</strong><br />
+				<strong class="order_line_label order_line_label_header">Phiếu Thu</strong><br />
 				<span class="order_line_value">Ngày <input class="easyui-datebox" type="text" name="created" /></span>
 			</div>
 		</div>
@@ -24,16 +24,16 @@
 		Có: <input class="easyui-numberbox" type="text" name="balance" />
 		</div>
 		<div class="order_template">
-			Mẫu số: C31-BB<br />
-			QĐ số: 19/2006/QĐ-BTC<br />
-			ngày 30/3/2006 của Bộ trưởng Bộ Tài chính
+			Mẫu số: 01-TT<br />
+			QĐ số: 1141-TC/QĐ/CĐKT<br />
+			Ngày 1 tháng 11 năm 1995 của Bộ Tài Chính
 		</div>
 		<div class="clear"></div>
 	</div>
 	<br />
 	<div class="order_body">
 		<div class="order_line">
-			<span class="order_line_label">Họ, tên người nhận tiền: </span>
+			<span class="order_line_label">Họ, tên người nộp tiền: </span>
 			<span class="order_line_value"><input type="text" name="order_name" value="" /></span>
 		</div>
 		<div class="order_line">
@@ -45,7 +45,7 @@
 			<span class="order_line_value"><input type="text" name="phone" /></span>
 		</div>
 		<div class="order_line">
-			<span class="order_line_label">Lý do nộp: </span>
+			<span class="order_line_label">Lý do thu: </span>
 			<span class="order_line_value"><input type="text" name="reason" /></span>
 		</div>
 		<div class="order_line">
@@ -76,7 +76,7 @@
 					<td><a href="javascript:void(0);" onclick="if($('#order_items_table tr').length <= 3){alert('Không thể xóa dòng này');} else{ $(this).parent().parent().remove(); calculateOrder();} return false;">Xóa</a></td>
 				</tr>
 				<tr class="last">
-					<td colspan="7"><button onclick="clone_last_item(); return false;">Thêm</button></td>
+					<td colspan="7"><button onclick="$('#order_items_table .last').before($('#order_items_table tr:eq(1)').clone()); calculateOrder(); return false;">Thêm</button></td>
 				</tr>
 			</table>
 			</span>
@@ -123,7 +123,7 @@
 </div>
 <input type="submit" value="Gửi" />
 </form>
-{children all}
+<?php $data->displayChildren('all');?>
 <script type="text/javascript">
 function calculateOrder() {
 	var $rows = $('#order_items_table .order_item_row');
@@ -143,73 +143,4 @@ function calculateOrder() {
 	});
 	$('.input_total_amount').val(total_amount);
 }
-setTimeout(
-	function() {
-		jQuery('.order_wrapper [name=order_name]').pzkAutoComplete({
-			loader: function(word, callback) {
-				pzks.dtable.student.search(word, function(resp){
-					return callback(resp.rows);
-				});
-			},
-			matcher: function(item, word) {
-				return true;
-			},
-			renderValue: function(item) {
-				return item.name;
-			},
-			renderLabel: function(item) {
-				return item.name + ' - ' + item.phone + ' - ' + item.code;
-			},
-			onSelect: function(item) {
-				$('.order_wrapper [name=phone]').val(item.phone);
-				$('.order_wrapper [name=address]').val(item.address);
-			}
-		});
-		jQuery('.item_input_name').pzkAutoComplete({
-			loader: function(word, callback) {
-				pzks.dtable.classes.search(word, function(resp){
-					return callback(resp.rows);
-				});
-			},
-			matcher: function(item, word) {
-				return true;
-			},
-			renderValue: function(item) {
-				return item.name;
-			},
-			renderLabel: function(item) {
-				return item.name;
-			},
-			onSelect: function(item, $elem) {
-				$elem.parents('tr').find('.item_input_price').val(item.amount);
-				calculateOrder();
-			}
-		});
-	}, 1000);
-	function clone_last_item() {
-		var last_item_clone = $('#order_items_table tr:eq(1)').clone();
-		last_item_clone.find('.pzk-autocomplete').remove();
-		last_item_clone.find('.item_input_name').pzkAutoComplete({
-			loader: function(word, callback) {
-				pzks.dtable.classes.search(word, function(resp){
-					return callback(resp.rows);
-				});
-			},
-			matcher: function(item, word) {
-				return true;
-			},
-			renderValue: function(item) {
-				return item.name;
-			},
-			renderLabel: function(item) {
-				return item.name;
-			},
-			onSelect: function(item, $elem) {
-				$elem.parents('tr').find('.item_input_price').val(item.amount);
-				calculateOrder();
-			}
-		});
-		$('#order_items_table .last').before(last_item_clone); calculateOrder();
-	}
-
 </script>

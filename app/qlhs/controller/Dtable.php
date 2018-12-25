@@ -33,20 +33,6 @@ class PzkDtableController extends PzkTableController {
 				=> 'c.id, c.*, s.name as subjectName, t.name as teacherName, t2.name as teacher2Name, 
 					c.startDate as startDate, r.name as roomName'
 		),
-		/*
-		'student' => array(
-			'table' => 'student 
-					left join `class_student` on student.id = class_student.studentId
-					left join `classes` on class_student.classId = classes.id
-					left join `student_order` on student.id = student_order.studentId
-						and classes.id = student_order.classId and student_order.status=\'\' or student_order.status is null
-					left join payment_period on student_order.payment_periodId = payment_period.id',
-			'fields' => 'student.*, group_concat(distinct(classes.name), \' \') as currentClassNames,
-			group_concat(\'[\', classes.name, \' \', case when student_order.payment_periodId = 0 then \'Cả khóa\' else payment_period.name end, \']<br />\' order by classes.name) as periodNames,
-				group_concat(\'[\', payment_period.id, \']\') as periodIds',
-			'groupBy' => 'student.id',
-			'orderBy' => 'student.id desc'
-		),*/
 		'student' => array(
 			'table' => 'student',
 			'orderBy' => 'id desc'
@@ -241,6 +227,7 @@ class PzkDtableController extends PzkTableController {
 		),
 		'classes_filter' => array(
 			'where' => array(
+				'keyword' => array('sql', "(c.name like '%?%' or c.code like '%?%' or s.name like '%?%' or t.name like '%?%' or r.name like '%?%'  or t.code like '%?%')"),
 				'status' => array('equal', array('column', 'c', 'status'), '?'),
 				'subjectId' => array('equal', array('column', 'c', 'subjectId'), '?'),
 				'teacherId' => array('equal', array('column', 'c', 'teacherId'), '?'),
@@ -251,6 +238,7 @@ class PzkDtableController extends PzkTableController {
 		),
 		'student_filter' => array(
 			'where' => array(
+				'keyword' => array('sql', "(name like '%?%' or phone like '%?%' or code like '%?%')"),
 				'name' => array('like', array('column', 'student', 'name'), '%?%'),
 				'phone' => array('like', array('column', 'student', 'phone'), '%?%'),
 				'classIds' => array('like', array('column', 'currentClassIds'), '%[?]%'),

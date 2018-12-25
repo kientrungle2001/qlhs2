@@ -1,25 +1,4 @@
-<!--
-	Source: https://catalin.red/dist/uploads/2011/03/css3-dropdown-menu-demo.html
-
-	-->
-
-<script>
-setTimeout(
-	function() {
-		$(function() {
-			if ($.browser.msie && $.browser.version.substr(0,1)<7)
-			{
-				$('li').has('ul').mouseover(function(){
-					$(this).children('ul').show();
-				}).mouseout(function(){
-					$(this).children('ul').hide();
-				});
-			}
-		});     
-	}, 1000
-)
-   
-</script>
+<!-- Source: https://catalin.red/dist/uploads/2011/03/css3-dropdown-menu-demo.html -->
 	<ul id="menu">
 	<li><a href="<?php echo BASE_REQUEST . '/'; ?>">Tổng quan</a></li>
 	<li>
@@ -111,10 +90,25 @@ setTimeout(
 		</ul>	
 	</li>
 	<li>
-		<a href="<?php echo BASE_REQUEST . '/student/order'; ?>">Học phí</a>
+		<a href="<?php echo BASE_REQUEST . '/student/order'; ?>">Hóa đơn</a>
 		<ul>
 			<li>
+				<a href="<?php echo BASE_REQUEST . '/student/order'; ?>">Học phí</a>
+			</li>
+			<li>
 				<a href="<?php echo BASE_REQUEST . '/order/report'; ?>">Báo cáo</a>
+			</li>
+			<li>
+				<a href="<?php echo BASE_REQUEST . '/order/billing'; ?>">Hóa đơn chi</a>
+			</li>
+			<li>
+				<a href="<?php echo BASE_REQUEST . '/order/createbill'; ?>">Tạo HĐ Chi Nhiều Mục</a>
+			</li>
+			<li>
+				<a href="<?php echo BASE_REQUEST . '/order/createbill2'; ?>">Tạo HĐ Chi Một Mục</a>
+			</li>
+			<li>
+				<a href="<?php echo BASE_REQUEST . '/order/createordermanual'; ?>">Tạo HĐ Thu</a>
 			</li>
 		</ul>
 	</li>
@@ -133,4 +127,34 @@ setTimeout(
 		</ul>
 	</li>
 </ul>
-<br />
+<style>
+.pzk-autocomplete {
+	position: absolute;
+	z-index: 1;
+	background: #fff;
+}
+.pzk-autocomplete-close {
+	float: right;
+	margin-right: -10px;
+	margin-top: -10px;
+	text-decoration: none;
+	border: 1px solid #ddd;
+	padding: 10px;
+	width: 10px;
+	height: 10px;
+	display: block;
+	border-radius: 50%;
+	text-align: center;
+}
+.pzk-autocomplete-item {
+	text-decoration: none;
+	padding: 5px;
+	border-bottom: 1px solid #ddd;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	display: block;
+}
+.pzk-autocomplete-item:hover {
+	background: yellow;
+}
+</style>

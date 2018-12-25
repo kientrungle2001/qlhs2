@@ -1,4 +1,4 @@
-<form method="post" action="{url /order/createbillpost}">
+<form method="post" action="<?php echo BASE_REQUEST . '/order/createbillpost'; ?>">
 <div class="order_wrapper">
 	<div class="order_header">
 		<div class="order_company">
@@ -123,7 +123,7 @@
 </div>
 <input type="submit" value="Gửi" />
 </form>
-{children all}
+<?php $data->displayChildren('all');?>
 <script type="text/javascript">
 function calculateOrder() {
 	var $rows = $('#order_items_table .order_item_row');

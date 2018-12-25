@@ -283,7 +283,7 @@ class PzkFileVarSessionStore extends PzkFileVarStore {
 
 /**
  * Luu tru bang database
- *
+ *  @see PzkStore
  */
 class PzkDatabaseStore extends PzkStore {
 	public function __construct() {
@@ -311,7 +311,7 @@ class PzkMongoStore extends PzkStore {
 
 /**
 @desc: ham lay gia tri trong cac store theo kieu key, value
-@param $key: viet duoi dang store.key
+@param String $key viet duoi dang store.key
 @example: 	pzk_store('session.abc123') se tra ve gia tri tuong ung voi key = abc123 luu trong session
 pzk_store('session.abc123', 'cai gi do') se gan gia tri 'cai gi do' cho key = abc123 luu trong session
 */
@@ -450,8 +450,8 @@ function pzk_filevar($key = NULL, $value = NULL, $timeout = NULL) {
 /////////////////////////// Cache Shortcuts /////////////////////////
 
 /**
- * 
- * @param unknown $xml
+ * @desc Hàm trả về đối tượng dạng PzkObject sau khi đã duyệt một đối tượng dạng xml. xml có thể là một chuỗi XML hoặc đường dẫn đến file xml
+ * @param String|DOMDocument|DOMElement $xml chuỗi xml hoặc đường dẫn đến file xml
  * @return PzkObject
  */
 function pzk_parse($xml) {

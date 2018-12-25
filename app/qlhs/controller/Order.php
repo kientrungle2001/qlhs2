@@ -348,4 +348,12 @@ class PzkOrderController extends PzkBaseController {
 		$this->append($reportResult);
 		$this->display();
 	}
+
+	public function createteacherbillingAction() {
+		
+	}
+
+	public function createpartnerbillingAction() {
+		
+	}
 }

@@ -64,7 +64,11 @@ class PzkController {
 	public function viewGrid($grid, $useMasterStructure = true) {
 		$this->viewStructure('grid/' . $grid, $useMasterStructure);
 	}
-	
+	/**
+	 * @desc Hiển thị operation 
+	 * @param string $op Trang chứa operation
+	 * @param boolean $useMasterStructure có nhúng trong master page không
+	 */
 	public function viewOperation($op, $useMasterStructure = true) {
 		$this->viewStructure('operation/' . $op, $useMasterStructure);
 	}
