@@ -46,7 +46,6 @@ if(!isset($defaultClassFilters)) {
 	<dg.dataGridItem field="currentClassNames" width="100">Lớp</dg.dataGridItem>
 	<!--dg.dataGridItem field="classNames" width="100">Lớp Đã Học</dg.dataGridItem-->
 	<dg.dataGridItem field="periodNames" width="100">Kỳ thanh toán</dg.dataGridItem>
-	<dg.dataGridItem field="startStudyDate" width="100">Ngày vào học</dg.dataGridItem>
 	<dg.dataGridItem field="note" width="140">Ghi chú</dg.dataGridItem>
 	<!-- Toolbar cho danh sách học sinh -->
 	<layout.toolbar id="dg_toolbar">
@@ -330,7 +329,7 @@ if(!isset($defaultClassFilters)) {
 		}
 	}
 	function studentNameFormatter(value, row, index) {
-		return '<strong>' + row.name + '</strong>' + (row.code !== '' ? '<br />' + row.code: '') + (row.phone !== '' ? '<br />' + row.phone: '');
+		return '<strong>' + row.name + '</strong>' + (row.code !== '' ? '<br />' + row.code: '') + (row.phone !== '' ? '<br />' + row.phone: '') + (row.startStudyDate !== '' ? '<br />' + row.startStudyDate: '');
 	}
 	]]>
 </script>

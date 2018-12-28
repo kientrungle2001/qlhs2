@@ -25,6 +25,8 @@ copy(PKG_DIR . DS . 'page.course.center.teacher_datagrid.php', BASE_DIR . '/app/
 copy(PKG_DIR . DS . 'page.course.center.teacher_muster.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/teacher_muster.php');
 copy(PKG_DIR . DS . 'page.course.center.student_order.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/student_order.php');
 copy(PKG_DIR . DS . 'page.course.center.test_class.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/test_class.php');
+copy(PKG_DIR . DS . 'page.course.center.test_mark.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/test_mark.php');
+copy(PKG_DIR . DS . 'page.course.center.script.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/script.php');
 // online
 copy(PKG_DIR . DS . 'page.course.online.php', BASE_DIR . '/app/qlhs/pages/grid/course/online.php');
 copy(PKG_DIR . DS . 'page.course.online.subject.php', BASE_DIR . '/app/qlhs/pages/grid/course/online/subject.php');
