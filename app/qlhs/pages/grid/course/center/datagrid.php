@@ -111,6 +111,12 @@
 			</frm.formItem>
 			<frm.formItem name="amount" required="false" label="Học phí">
 			</frm.formItem>
+			<frm.formItem type="user-defined" name="feeType" required="false" label="Loại phí">
+				<select name="feeType">
+					<option value="0">Theo buổi</option>
+					<option value="1">Cả khóa</option>
+				</select>
+			</frm.formItem>
 			<frm.formItem name="status" required="true" validatebox="true" label="Trạng thái" />
 		</frm.form>
 	</wdw.dialog>

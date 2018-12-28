@@ -141,7 +141,7 @@ class PzkDtableController extends PzkTableController {
 	public $inserts = array(
 		'student' => array('name', 'phone', 'school', 'birthDate', 'address', 'parentName', 
 		'startStudyDate', 'endStudyDate', 'note', 'color', 'fontStyle', 'assignId', 'online', 'classed', 'type', 'status', 'rating', 'code'),
-		'classes' => array('name', 'startDate', 'endDate', 'roomId', 'subjectId', 'teacherId', 'teacher2Id', 'level', 'status', 'amount', 'online', 'code'),
+		'classes' => array('name', 'startDate', 'endDate', 'roomId', 'subjectId', 'teacherId', 'teacher2Id', 'level', 'status', 'amount', 'online', 'code', 'feeType'),
 		'class_student' => array('classId', 'studentId', 'startClassDate', 'endClassDate', 'note'),
 		'class_teacher' => array('classId', 'teacherId',  'note', 'status', 'role'),
 		'room' => array('name', 'size', 'status', 'note'),
