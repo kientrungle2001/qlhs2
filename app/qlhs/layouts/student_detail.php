@@ -259,7 +259,7 @@ Quên đồ
 -->
 </div>
 <!-- Điểm danh - Học phí -->
-<div class="easyui-tabs" style="width:600px;height:auto;<?php if($student['online'] == 1):?>display: none; height: 0; visibility: hidden;<?php endif;?>">
+<div class="easyui-tabs" style="width:600px;height:auto;<?php if($student['online'] == 3):?>display: none; height: 0; visibility: hidden;<?php endif;?>">
 <?php 
 
 $classIds = array();

@@ -9,26 +9,21 @@
 				<ul>
 					<li><a href="<?php echo BASE_REQUEST . '/student/classed'; ?>">Đã xếp lớp</a></li>
 					<li><a href="<?php echo BASE_REQUEST . '/student/unclassed'; ?>">Danh sách chờ</a></li>
-					<li><a href="<?php echo BASE_REQUEST . '/student/ontest'; ?>">Test đầu vào</a>
-					<ul>
-						<li><a href="<?php echo BASE_REQUEST . '/test/schedule'; ?>">Lịch hẹn thi đầu vào</a></li>
-					</ul>
-					</li>
+					<li><a href="<?php echo BASE_REQUEST . '/student/ontest'; ?>">Test đầu vào</a></li>
 				</ul>
 			</li>
 			<li>
 				<a href="<?php echo BASE_REQUEST . '/student/online'; ?>">Trực tuyến</a>
 				<ul>
-					<li><a href="<?php echo BASE_REQUEST . '/student/potential'; ?>">Tiềm năng</a>
-						<ul>
-							<li><a href="<?php echo BASE_REQUEST . '/advice'; ?>">Tư vấn</a></li>
-						</ul>
-					</li>
+					<li><a href="<?php echo BASE_REQUEST . '/student/potential'; ?>">Tiềm năng</a></li>
 					<li><a href="<?php echo BASE_REQUEST . '/student/used'; ?>">Đang sử dụng</a></li>
 					<li><a href="<?php echo BASE_REQUEST . '/student/familiar'; ?>">Thân thiết</a></li>
 				</ul>				
 			</li>
-			
+			<li><a href="<?php echo BASE_REQUEST . '/test/schedule'; ?>">Lịch hẹn thi đầu vào</a></li>
+			<li><a href="<?php echo BASE_REQUEST . '/advice'; ?>">Tư vấn Phần mềm</a></li>
+			<li><a href="<?php echo BASE_REQUEST . '/demo/orderstat'; ?>">Bảng học phí</a></li>
+			<li><a href="<?php echo BASE_REQUEST . '/demo/muster'; ?>">Điểm danh</a></li>
 		</ul>
 	</li>
 	<li>
@@ -58,6 +53,7 @@
 		<ul>
 			<li><a href="<?php echo BASE_REQUEST . '/teacher/lecturer'; ?>">Giảng viên</a></li>
 			<li><a href="<?php echo BASE_REQUEST . '/teacher/tutor'; ?>">Trợ giảng</a></li>
+			<li><a href="<?php echo BASE_REQUEST . '/teacher/billing'; ?>">Bảng lương</a></li>
 		</ul>	
 	</li>
 	<li>
@@ -67,10 +63,19 @@
 		<a href="<?php echo BASE_REQUEST . '/test'; ?>">Bài thi</a>	
 	</li>
 	<li>
-		<a href="<?php echo BASE_REQUEST . '/employee'; ?>">Nhân viên</a>	
+		<a href="<?php echo BASE_REQUEST . '/employee'; ?>">Nhân viên</a>
+		<ul>
+			<li>
+			<a href="<?php echo BASE_REQUEST . '/employee/billing'; ?>">Bảng lương</a>
+			</li>
+		</ul>
 	</li>
 	<li>
-		<a href="<?php echo BASE_REQUEST . '/partner'; ?>">Đối tác</a>	
+		<a href="<?php echo BASE_REQUEST . '/partner'; ?>">Đối tác</a>
+		<ul>
+			<li><a href="<?php echo BASE_REQUEST . '/partner/order'; ?>">Hóa đơn thu</a></li>
+			<li><a href="<?php echo BASE_REQUEST . '/partner/billing'; ?>">Hóa đơn chi</a></li>
+		</ul>
 	</li>
 	<li>
 		<a href="#">Trung tâm</a>
@@ -127,34 +132,3 @@
 		</ul>
 	</li>
 </ul>
-<style>
-.pzk-autocomplete {
-	position: absolute;
-	z-index: 1;
-	background: #fff;
-}
-.pzk-autocomplete-close {
-	float: right;
-	margin-right: -10px;
-	margin-top: -10px;
-	text-decoration: none;
-	border: 1px solid #ddd;
-	padding: 10px;
-	width: 10px;
-	height: 10px;
-	display: block;
-	border-radius: 50%;
-	text-align: center;
-}
-.pzk-autocomplete-item {
-	text-decoration: none;
-	padding: 5px;
-	border-bottom: 1px solid #ddd;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	display: block;
-}
-.pzk-autocomplete-item:hover {
-	background: yellow;
-}
-</style>

@@ -3,7 +3,7 @@
 	<?php 
 		$filters = array(
 			'online' 			=> 	0,
-			'classed'			=>		0
+			'classed'			=>		-1
 		);
 		$defaultAdd = array_merge($filters, array(
 			'status'				=> 	0,

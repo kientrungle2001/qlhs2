@@ -9,8 +9,17 @@ if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/course/online')) {
 if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/course/center')) {
     mkdir(BASE_DIR . '/app/qlhs/pages/grid/course/center');
 }
-copy(PKG_DIR . DS . 'page.course.online.php', BASE_DIR . '/app/qlhs/pages/grid/course/online.php');
+
+// center
 copy(PKG_DIR . DS . 'page.course.center.php', BASE_DIR . '/app/qlhs/pages/grid/course/center.php');
+copy(PKG_DIR . DS . 'page.course.center.subject.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/subject.php');
+copy(PKG_DIR . DS . 'page.course.center.level.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/level.php');
+copy(PKG_DIR . DS . 'page.course.center.teacher.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/teacher.php');
+copy(PKG_DIR . DS . 'page.course.center.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/datagrid.php');
+copy(PKG_DIR . DS . 'page.course.center.form_schedule.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/form_schedule.php');
+copy(PKG_DIR . DS . 'page.course.center.schedule.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/schedule.php');
+// online
+copy(PKG_DIR . DS . 'page.course.online.php', BASE_DIR . '/app/qlhs/pages/grid/course/online.php');
 copy(PKG_DIR . DS . 'page.course.online.subject.php', BASE_DIR . '/app/qlhs/pages/grid/course/online/subject.php');
 copy(PKG_DIR . DS . 'page.course.online.level.php', BASE_DIR . '/app/qlhs/pages/grid/course/online/level.php');
 copy(PKG_DIR . DS . 'page.course.online.teacher.php', BASE_DIR . '/app/qlhs/pages/grid/course/online/teacher.php');

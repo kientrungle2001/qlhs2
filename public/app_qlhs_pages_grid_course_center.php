@@ -1,49 +1,47 @@
 <div>
-<?php require_once BASE_DIR . '/' . pzk_app()->getUri('constants.php')?>
+<?php require BASE_DIR . '/' . pzk_app()->getUri('constants.php')?>
 <div style="float:left; width: 220px;">
 	<dg.dataGrid id="dgsubject" title="" table="subject" width="200px" height="115px" pagination="false" rownumbers="false" defaultFilters='{"online": 0}'>
-		<dg.dataGridItem field="id" width="20">Id</dg.dataGridItem>
-		<dg.dataGridItem field="name" width="140">Môn học</dg.dataGridItem>
-		
-		<layout.toolbar id="dgsubject_toolbar" style="display: none;">
-			<layout.toolbarItem icon="sum" action="$dgsubject.detail(function(row) { jQuery('#searchSubject').val(row.id); searchClasses(); jQuery('#searchTeacherSubject').val(row.id); searchTeacher(); });" />
-			<layout.toolbarItem icon="reload" action="$dgsubject.detail(function(row) { jQuery('#searchSubject').val(''); searchClasses(); jQuery('#searchTeacherSubject').val(''); searchTeacher(); });" />	
-		</layout.toolbar>	
-	</dg.dataGrid>
+	<dg.dataGridItem field="id" width="20">Id</dg.dataGridItem>
+	<dg.dataGridItem field="name" width="140">Môn học</dg.dataGridItem>
 	
+	<layout.toolbar id="dgsubject_toolbar" style="display: none;">
+		<layout.toolbarItem icon="sum" action="$dgsubject.detail(function(row) { jQuery('#searchSubject').val(row.id); searchClasses(); jQuery('#searchTeacherSubject').val(row.id); searchTeacher(); });" />
+		<layout.toolbarItem icon="reload" action="$dgsubject.detail(function(row) { jQuery('#searchSubject').val(''); searchClasses(); jQuery('#searchTeacherSubject').val(''); searchTeacher(); });" />	
+	</layout.toolbar>	
+</dg.dataGrid>
 	<dg.dataGrid id="dglevel" title="" table="level" width="200px" height="145px" pagination="false" rownumbers="false">
-		<dg.dataGridItem field="id" width="20">Id</dg.dataGridItem>
-		<dg.dataGridItem field="name" width="140">Trình độ</dg.dataGridItem>
-		
-		<layout.toolbar id="dglevel_toolbar" style="display: none;">
-			<layout.toolbarItem action="$dglevel.detail(function(row) { jQuery('#searchLevel').val(row.id); searchClasses(); jQuery('#searchTeacherLevel').val(row.id); searchTeacher(); });" icon="sum" />
-			<layout.toolbarItem action="$dglevel.detail(function(row) { jQuery('#searchLevel').val(''); searchClasses(); jQuery('#searchTeacherLevel').val(''); searchTeacher(); });" icon="reload" />
-		</layout.toolbar>
-	</dg.dataGrid>
+	<dg.dataGridItem field="id" width="20">Id</dg.dataGridItem>
+	<dg.dataGridItem field="name" width="140">Trình độ</dg.dataGridItem>
 	
+	<layout.toolbar id="dglevel_toolbar" style="display: none;">
+		<layout.toolbarItem action="$dglevel.detail(function(row) { jQuery('#searchLevel').val(row.id); searchClasses(); jQuery('#searchTeacherLevel').val(row.id); searchTeacher(); });" icon="sum" />
+		<layout.toolbarItem action="$dglevel.detail(function(row) { jQuery('#searchLevel').val(''); searchClasses(); jQuery('#searchTeacherLevel').val(''); searchTeacher(); });" icon="reload" />
+	</layout.toolbar>
+</dg.dataGrid>
 	<dg.dataGrid id="dgteacher" title="" table="teacher_class" width="200px" height="250px" pagination="false" rownumbers="false" pageSize="50">
-		<dg.dataGridItem field="id" width="20">Id</dg.dataGridItem>
-		<dg.dataGridItem field="name" width="140">Tên giáo viên</dg.dataGridItem>
-		<layout.toolbar id="dgteacher_toolbar">
-			<hform id="dgteacher_search">
+	<dg.dataGridItem field="id" width="20">Id</dg.dataGridItem>
+	<dg.dataGridItem field="name" width="140">Tên giáo viên</dg.dataGridItem>
+	<layout.toolbar id="dgteacher_toolbar">
+		<hform id="dgteacher_search">
+			<form.combobox 
+				id="searchTeacherSubject" name="subjectId"
+				sql="select id as value, 
+						name as label from `subject` order by name ASC"
+				layout="category-select-list"></form.combobox>
 				<form.combobox 
-					id="searchTeacherSubject" name="subjectId"
-					sql="select id as value, 
-							name as label from `subject` order by name ASC"
-					layout="category-select-list"></form.combobox>
-					<form.combobox 
-							id="searchTeacherLevel" name="level"
-							sql="select distinct(level) as value, level as label from classes order by label asc"
-							layout="category-select-list"></form.combobox>
-					<layout.toolbarItem action="searchTeacher()" icon="search" />
-			</hform>
-			<layout.toolbarItem action="$dgteacher.detail(function(row) { jQuery('#searchTeacher').val(row.id); searchClasses();  });" icon="sum" />
-			<layout.toolbarItem action="$dgteacher.detail(function(row) { jQuery('#searchTeacher').val(''); searchClasses();  });" icon="reload" />
-		</layout.toolbar>
-	</dg.dataGrid>
+						id="searchTeacherLevel" name="level"
+						sql="select distinct(level) as value, level as label from classes order by label asc"
+						layout="category-select-list"></form.combobox>
+				<layout.toolbarItem action="searchTeacher()" icon="search" />
+		</hform>
+		<layout.toolbarItem action="$dgteacher.detail(function(row) { jQuery('#searchTeacher').val(row.id); searchClasses();  });" icon="sum" />
+		<layout.toolbarItem action="$dgteacher.detail(function(row) { jQuery('#searchTeacher').val(''); searchClasses();  });" icon="reload" />
+	</layout.toolbar>
+</dg.dataGrid>
 </div>
 <div style="float:left; width: 500px;">
-<dg.dataGrid id="dg" title="Quản lý lớp học" scriptable="true" table="classes" width="500px" height="500px" rownumbers="false" pageSize="50" defaultFilters='{"online": 0}'>
+	<dg.dataGrid id="dg" title="Quản lý lớp học" scriptable="true" table="classes" width="500px" height="500px" rownumbers="false" pageSize="50" defaultFilters='{"online": 0}'>
 	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
 	<dg.dataGridItem field="name" width="120">Tên lớp</dg.dataGridItem>
 	<dg.dataGridItem field="subjectName" width="120">Môn học</dg.dataGridItem>
@@ -162,21 +160,20 @@
 </dg.dataGrid>
 </div>
 <div style="float:left; margin-left: 20px; margin-top: 20px; width: auto;">
-  <div class="easyui-tabs" style="width: 550px;">
+ <div class="easyui-tabs" style="width: 550px;">
 	<div title="Xếp lịch">
 		<!-- Xếp lịch học -->
-		<div layout="form/schedule">
-		
-		<layout.toolbarItem action="$dg.actOnSelected({
-			'url': '<?php echo BASE_REQUEST . '/dtable/addschedule'; ?>', 
-			'gridField': 'classId', 
-			'fields': {
-				'startDate': 'input[name=startDate]',
-				'endDate' : 'input[name=endDate]',
-				'weekday' : '#weekday',
-				'studyTime' : '#studyTime'
-			}
-		}); $dg2.reload();" icon="ok" />
+<div layout="form/schedule">
+<layout.toolbarItem action="$dg.actOnSelected({
+	'url': '<?php echo BASE_REQUEST . '/dtable/addschedule'; ?>', 
+	'gridField': 'classId', 
+	'fields': {
+		'startDate': 'input[name=startDate]',
+		'endDate' : 'input[name=endDate]',
+		'weekday' : '#weekday',
+		'studyTime' : '#studyTime'
+	}
+}); $dg2.reload();" icon="ok" />
 		</div>
 		<div>
 			<div style="float:left; width: 220px;">

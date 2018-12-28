@@ -20,24 +20,21 @@ if(!isset($defaultClassFilters)) {
 </script>
 <dg.dataGrid id="dg" title="Quản lý học sinh" scriptable="true" layout="easyui/datagrid/datagrid" 
 		onRowContextMenu="studentMenu" nowrap="false"
-		table="student" width="600px" height="450px"
+		table="student" width="700px" height="550px"
 		rowStyler="studentRowStyler" defaultFilters='<?php echo json_encode($filters)?>'>
 	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
-	<dg.dataGridItem field="name" width="140">Tên học sinh</dg.dataGridItem>
-	<dg.dataGridItem field="code" width="80">Mã</dg.dataGridItem>
-	<dg.dataGridItem field="phone" width="80">Số điện thoại</dg.dataGridItem>
+	<dg.dataGridItem field="name" width="140" formatter="studentNameFormatter">Tên học sinh</dg.dataGridItem>
 	<!--dg.dataGridItem field="school" width="120">Trường</dg.dataGridItem-->
 	<dg.dataGridItem field="currentClassNames" width="100">Lớp</dg.dataGridItem>
 	<!--dg.dataGridItem field="classNames" width="100">Lớp Đã Học</dg.dataGridItem-->
 	<dg.dataGridItem field="periodNames" width="100">Kỳ thanh toán</dg.dataGridItem>
-	<dg.dataGridItem field="startStudyDate" width="100">Ngày vào học</dg.dataGridItem>
 	<dg.dataGridItem field="note" width="140">Ghi chú</dg.dataGridItem>
 	<!-- Toolbar cho danh sách học sinh -->
 	<layout.toolbar id="dg_toolbar">
 		<hform id="dg_search" onsubmit="searchStudent(); return false;">
-			<strong>Tên học sinh: </strong><form.textField width="120px" name="name" id="searchName" onChange="searchStudent();" />
-			<strong> SĐT: </strong><form.textField width="80px" name="phone" id="searchPhone" onChange="searchStudent();" />
-			<strong>Mã: </strong><form.textField width="80px" name="code" id="searchCode" onChange="searchStudent();" />
+			<input width="120px" name="keyword" id="searchKeyword" onKeyUp="searchStudent();" placeholder="Tìm kiếm" />
+			<a href="#" onClick="jQuery(this).next().toggle();jQuery(this).toggle();return false;">Nâng cao</a>
+			<span style="display: none;">
 			<edu.courseSelector name="classIds" id="searchClassIds" onChange="searchStudent();" defaultFilters='<?php echo json_encode($defaultClassFilters)?>' />
 			<form.combobox label="Chọn kỳ thanh toán" id="searchPeriod" name="periodId"
 				sql="{payment_period_sql}" layout="category-select-list" onChange="searchStudent();"></form.combobox>
@@ -85,16 +82,16 @@ if(!isset($defaultClassFilters)) {
 				<option value="0">Dừng học</option>
 			</select>
 		<?php endif;?>
+		<a href="#" onClick="jQuery(this).parent().prev().toggle();jQuery(this).parent().toggle();return false;">Thu gọn</a>
+		</span>
 			<input type="submit" style="display: none;" value="Tìm" />
 			<layout.toolbarItem id="searchButton" action="searchStudent();" icon="search" />
-			
-			<br />
 			<layout.toolbarItem action="$dg.add(studentDefaultAdd)" icon="add" />
 			<layout.toolbarItem action="$dg.edit()" icon="edit" />
 			<layout.toolbarItem action="$dg.del()" icon="remove" />
 			<layout.toolbarItem action="$dg.detail({url: '{url /student/detail}', 'gridField': 'id', 'action': 'render', 'renderRegion': '#student-detail'}); $dg.detail(function(row) { selectClass(row); });" icon="sum" />
-			<layout.toolbarItem action="exportStudent('json'); return false;" icon="redo" label="Xuất JSON" />
-			<layout.toolbarItem action="exportStudent('excel'); return false;" icon="redo" label="Xuất EXCEL" />
+			<layout.toolbarItem action="exportStudent('json'); return false;" icon="redo" label="JSON" />
+			<layout.toolbarItem action="exportStudent('excel'); return false;" icon="redo" label="EXCEL" />
 		</hform>
 	</layout.toolbar>
 	<!-- Hết toolbar cho danh sách học sinh -->

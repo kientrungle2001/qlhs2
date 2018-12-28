@@ -17,6 +17,8 @@ if(null === $package) {
         define ('PKG_DIR', PKGS_DIR . DS . $package);
         if(file_exists(PKG_DIR . DS . $command))
             require PKG_DIR . DS . $command;
+        elseif(file_exists(PKG_DIR . DS . $command . '.php'))
+            require PKG_DIR . DS . $command . '.php';
         else
             echo "package [$package] does not exist command [$command]! \r\n";
     }

@@ -5,8 +5,9 @@
 		function searchStudent() {
 			pzk.elements.dg.search({
 				'fields': {
-					'name' : '#searchName', 'classIds' : '#searchClassIds', 
-					'phone': '#searchPhone', 'periodId' : '#searchPeriod', 
+					'keyword' : '#searchKeyword', 
+					'classIds' : '#searchClassIds', 
+					'periodId' : '#searchPeriod', 
 					'notlikeperiodId': '#searchnotlikePeriod',
 					'subjectIds': '#searchSubject',
 					'color': '#searchColor',
@@ -98,6 +99,9 @@
 		} else {
 			return style;
 		}
+	}
+	function studentNameFormatter(value, row, index) {
+		return '<strong>' + row.name + '</strong>' + (row.code !== '' ? '<br />' + row.code: '') + (row.phone !== '' ? '<br />' + row.phone: '') + (row.startStudyDate !== '' ? '<br />' + row.startStudyDate: '');
 	}
 	]]>
 </script>

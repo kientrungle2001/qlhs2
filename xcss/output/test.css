@@ -1,8 +1,19 @@
 .clear {
 	clear: both;
 }
-#menu ul a:hover {
-	background: linear-gradient(#04acec,  #0186ba);
+#menu ul a {
+	padding: 10px;
+	height: auto;
+	width: 130px;
+	line-height: 1;
+	display: block;
+	white-space: nowrap;
+	float: none;
+	text-transform: none;
+}
+.separator .inner .currentTime {
+	float: left;
+	width: auto;
 }
 .separator .inner .categories {
 	float: right;
@@ -52,15 +63,8 @@
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
-#menu ul a {
-	padding: 10px;
-	height: auto;
-	width: 130px;
-	line-height: 1;
-	display: block;
-	white-space: nowrap;
-	float: none;
-	text-transform: none;
+#menu ul a:hover {
+	background: linear-gradient(#04acec,  #0186ba);
 }
 #menu ul li:first-child > a {
 	-moz-border-radius: 5px 5px 0 0;
@@ -125,22 +129,30 @@
 	border-top: 5px solid transparent;
 	border-right: 8px solid #E0ECFF;
 }
-.separator .inner .currentTime {
-	float: left;
-	width: auto;
-}
 .schedule-daily::after {
 	content: ' ';
 	display: block;
 	clear: both;
 }
+#menu li:hover	> ul {
+	display: block;
+}
 .order_wrapper {
 	width: 595px;
 	font-size: 12px;
 }
-.separator {
-	background: #eceeed;
+.pzk-autocomplete-close {
+	float: right;
+	margin-right: -10px;
+	margin-top: -10px;
+	text-decoration: none;
+	border: 1px solid #ddd;
 	padding: 10px;
+	width: 10px;
+	height: 10px;
+	display: block;
+	border-radius: 50%;
+	text-align: center;
 }
 .order_line_value input {
 	width: 100px;
@@ -181,6 +193,29 @@
 *:first-child+html #menu {
 	zoom: 1;
 }
+.pzk-autocomplete {
+	position: absolute;
+	z-index: 1;
+	background: #fff;
+}
+.pzk-autocomplete-item {
+	text-decoration: none;
+	padding: 5px;
+	border-bottom: 1px solid #ddd;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	display: block;
+}
+#menu li:hover > a {
+	color: #444;
+}
+.pzk-autocomplete-item:hover {
+	background: yellow;
+}
+.separator {
+	background: #eceeed;
+	padding: 10px;
+}
 .order_header .order_company {
 	float: left;
 	width: 145px;
@@ -217,18 +252,12 @@
 #menu a {
 	float: left;
 	height: 25px;
-	padding: 0 25px;
+	padding: 0 10px;
 	color: #999;
 	text-transform: uppercase;
 	font: bold 12px/25px Arial, Helvetica;
 	text-decoration: none;
 	text-shadow: 0 1px 0 #000;
-}
-#menu li:hover > a {
-	color: #444;
-}
-#menu li:hover	> ul {
-	display: block;
 }
 #menu ul ul li:first-child a:hover:after {
 	border-right-color: #E0ECFF;

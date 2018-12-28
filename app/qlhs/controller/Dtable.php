@@ -238,13 +238,14 @@ class PzkDtableController extends PzkTableController {
 		),
 		'student_filter' => array(
 			'where' => array(
-				'keyword' => array('sql', "(name like '%?%' or phone like '%?%' or code like '%?%')"),
+				'keyword' => array('sql', "(name like '%?%' or phone like '%?%' or code like '%?%' or currentClassNames like '%?%' or periodNames like '%?%' or assignName like '%?%' or startStudyDate like '%?%' or subjectNames like '%?%')"),
 				'name' => array('like', array('column', 'student', 'name'), '%?%'),
 				'phone' => array('like', array('column', 'student', 'phone'), '%?%'),
 				'classIds' => array('like', array('column', 'currentClassIds'), '%[?]%'),
 				'subjectIds' => array('like', array('column', 'subjectIds'), '%[?]%'),
 				'teacherIds' => array('like', array('column', 'teacherIds'), '%[?]%'),
 				'periodId' =>  array('like', array('column', 'periodIds'), '%?%'),
+				'notlikeperiodId' => array('sql', "periodIds not like '%?%'"),
 				'color' => array('equal', array('column', 'color'), '?'),
 				'fontStyle' => array('equal', array('column', 'fontStyle'), '?'),
 				'assignId' => array('equal', array('column', 'assignId'), '?'),
