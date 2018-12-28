@@ -18,6 +18,13 @@ copy(PKG_DIR . DS . 'page.course.center.teacher.php', BASE_DIR . '/app/qlhs/page
 copy(PKG_DIR . DS . 'page.course.center.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/datagrid.php');
 copy(PKG_DIR . DS . 'page.course.center.form_schedule.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/form_schedule.php');
 copy(PKG_DIR . DS . 'page.course.center.schedule.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/schedule.php');
+copy(PKG_DIR . DS . 'page.course.center.tuition_fee.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/tuition_fee.php');
+copy(PKG_DIR . DS . 'page.course.center.student_datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/student_datagrid.php');
+copy(PKG_DIR . DS . 'page.course.center.student_muster.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/student_muster.php');
+copy(PKG_DIR . DS . 'page.course.center.teacher_datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/teacher_datagrid.php');
+copy(PKG_DIR . DS . 'page.course.center.teacher_muster.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/teacher_muster.php');
+copy(PKG_DIR . DS . 'page.course.center.student_order.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/student_order.php');
+copy(PKG_DIR . DS . 'page.course.center.test_class.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/test_class.php');
 // online
 copy(PKG_DIR . DS . 'page.course.online.php', BASE_DIR . '/app/qlhs/pages/grid/course/online.php');
 copy(PKG_DIR . DS . 'page.course.online.subject.php', BASE_DIR . '/app/qlhs/pages/grid/course/online/subject.php');
