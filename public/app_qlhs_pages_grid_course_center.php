@@ -44,6 +44,7 @@
 	<dg.dataGrid id="dg" title="Quản lý lớp học" scriptable="true" table="classes" width="500px" height="500px" rownumbers="false" pageSize="50" defaultFilters='{"online": 0}'>
 	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
 	<dg.dataGridItem field="name" width="120">Tên lớp</dg.dataGridItem>
+	<dg.dataGridItem field="code" width="80">Mã</dg.dataGridItem>
 	<dg.dataGridItem field="subjectName" width="120">Môn học</dg.dataGridItem>
 	<!--dg.dataGridItem field="level" width="120">Trình độ</dg.dataGridItem-->
 	<dg.dataGridItem field="teacherName" width="120">Giáo viên</dg.dataGridItem>
@@ -117,6 +118,7 @@
 		<frm.form gridId="dg">
 			<frm.formItem type="hidden" name="id" required="false" label="" />
 			<frm.formItem name="name" required="true" validatebox="true" label="Tên lớp" />
+			<frm.formItem name="code" required="true" validatebox="true" label="Mã" />
 			<frm.formItem type="user-defined" name="subjectId" required="false" label="Môn học">
 				<form.combobox name="subjectId"
 						sql="select id as value, 

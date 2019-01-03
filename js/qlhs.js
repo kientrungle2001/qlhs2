@@ -33,6 +33,54 @@ pzks.dtable.student.search = function(keyword, callback) {
 	}, callback);
 }
 
+pzks.dtable.teacher = function(options, callback) {
+	var opts = jQuery.extend({}, options, {
+		table: 'teacher'
+	});
+	return pzks.dtable.json(opts, callback);
+}
+
+pzks.dtable.teacher.search = function(keyword, callback) {
+	return pzks.dtable.teacher({
+		page: 1, rows: 10, 
+		filters: {
+			keyword: keyword
+		}
+	}, callback);
+}
+
+pzks.dtable.employee = function(options, callback) {
+	var opts = jQuery.extend({}, options, {
+		table: 'employee'
+	});
+	return pzks.dtable.json(opts, callback);
+}
+
+pzks.dtable.employee.search = function(keyword, callback) {
+	return pzks.dtable.employee({
+		page: 1, rows: 10, 
+		filters: {
+			keyword: keyword
+		}
+	}, callback);
+}
+
+pzks.dtable.partner = function(options, callback) {
+	var opts = jQuery.extend({}, options, {
+		table: 'partner'
+	});
+	return pzks.dtable.json(opts, callback);
+}
+
+pzks.dtable.partner.search = function(keyword, callback) {
+	return pzks.dtable.partner({
+		page: 1, rows: 10, 
+		filters: {
+			keyword: keyword
+		}
+	}, callback);
+}
+
 pzks.dtable.classes = function(options, callback) {
 	var opts = jQuery.extend({}, options, {
 		table: 'classes'

@@ -11,7 +11,7 @@
 	<dg.dataGridItem field="created" width="80">Ngày tạo</dg.dataGridItem>
 	<layout.toolbar id="dg_toolbar">
 		<hform id="dg_search">
-			<layout.toolbarItem action="$dg.detail({url: '{url /order/billingdetail}', 'gridField': 'id', 'action': 'view', 'renderRegion': '#order-detail'});" icon="sum" />
+			<layout.toolbarItem action="$dg.detail({url: '<?php echo BASE_REQUEST . '/order/billingdetail'; ?>', 'gridField': 'id', 'action': 'view', 'renderRegion': '#order-detail'});" icon="sum" />
 			<layout.toolbarItem action="$dg.del()" icon="remove" />
 		</hform>
 	</layout.toolbar>

@@ -54,6 +54,8 @@
 			<li><a href="{url /teacher/lecturer}">Giảng viên</a></li>
 			<li><a href="{url /teacher/tutor}">Trợ giảng</a></li>
 			<li><a href="{url /teacher/billing}">Bảng lương</a></li>
+			<li><a href="{url /teacher/create_billing}">Tạo HĐ Chi 1 mục</a></li>
+			<li><a href="{url /teacher/create_billing_multiple}">Tạo HĐ Chi nhiều mục</a></li>
 		</ul>	
 	</li>
 	<li>
@@ -68,6 +70,8 @@
 			<li>
 			<a href="{url /employee/billing}">Bảng lương</a>
 			</li>
+			<li><a href="{url /employee/create_billing}">Tạo HĐ Chi 1 mục</a></li>
+			<li><a href="{url /employee/create_billing_multiple}">Tạo HĐ Chi nhiều mục</a></li>
 		</ul>
 	</li>
 	<li>
@@ -75,6 +79,8 @@
 		<ul>
 			<li><a href="{url /partner/order}">Hóa đơn thu</a></li>
 			<li><a href="{url /partner/billing}">Hóa đơn chi</a></li>
+			<li><a href="{url /partner/create_billing}">Tạo HĐ Chi 1 mục</a></li>
+			<li><a href="{url /partner/create_billing_multiple}">Tạo HĐ Chi nhiều mục</a></li>
 		</ul>
 	</li>
 	<li>

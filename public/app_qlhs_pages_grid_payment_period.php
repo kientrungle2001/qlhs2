@@ -1,6 +1,7 @@
 <dg.dataGrid id="dg" title="Quản lý kỳ thanh toán" table="payment_period" width="800px" height="450px">
 	<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
 	<dg.dataGridItem field="name" width="120">Kỳ thanh toán</dg.dataGridItem>
+	<dg.dataGridItem field="code" width="80">Mã</dg.dataGridItem>
 	<dg.dataGridItem field="startDate" width="120">Ngày bắt đầu</dg.dataGridItem>
 	<dg.dataGridItem field="endDate" width="120">Ngày kết thúc</dg.dataGridItem>
 	<dg.dataGridItem field="className" width="120">Lớp</dg.dataGridItem>
@@ -15,6 +16,7 @@
 		<frm.form gridId="dg">
 			<frm.formItem type="hidden" name="id" required="false" label="" />
 			<frm.formItem name="name" required="true" validatebox="true" label="Kỳ thanh toán" />
+			<frm.formItem name="code" required="true" validatebox="true" label="Mã" />
 			<frm.formItem type="user-defined" name="classId" required="false" validatebox="true" label="Lớp">
 				<form.combobox name="classId"
 						sql="select id as value, 

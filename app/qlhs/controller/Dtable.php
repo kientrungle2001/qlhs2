@@ -152,7 +152,7 @@ class PzkDtableController extends PzkTableController {
 		'teaching' => array('subjectId', 'teacherId', 'level'),
 		'schedule' => array('classId', 'studyDate', 'studyTime', 'status'),
 		'off_schedule' => array('classId', 'offDate', 'type', 'reason', 'paymentType'),
-		'payment_period' => array('classId', 'name', 'startDate', 'endDate', 'status'),
+		'payment_period' => array('classId', 'name', 'startDate', 'endDate', 'status', 'code'),
 		'student_schedule' => array('classId', 'studentId', 'studyDate', 'status'),
 		'teacher_schedule' => array('classId', 'teacherId', 'studyDate', 'status'),
 		'student_order' => array('classId', 'studentId', 'payment_periodId', 'amount'),
@@ -179,6 +179,15 @@ class PzkDtableController extends PzkTableController {
 			'none' => 0
 		),
 		'classes' => array(
+			'none' => 0
+		),
+		'teacher' => array(
+			'none' => 0
+		),
+		'employee' => array(
+			'none' => 0
+		),
+		'partner' => array(
 			'none' => 0
 		),
 		'teacher_class' => array(
@@ -234,6 +243,21 @@ class PzkDtableController extends PzkTableController {
 				'roomId' => array('equal', array('column', 'c', 'roomId'), '?'),
 				'level' => array('equal', array('column', 'c', 'level'), '?'),
 				'online' => array('equal', array('column', 'c', 'online'), '?'),
+			)
+		),
+		'teacher_filter' => array(
+			'where' => array(
+				'keyword' => array('sql', "(t.name like '%?%' or t.code like '%?%')"),
+			)
+		),
+		'employee_filter' => array(
+			'where' => array(
+				'keyword' => array('sql', "(name like '%?%' or code like '%?%' or phone like '%?%')"),
+			)
+		),
+		'partner_filter' => array(
+			'where' => array(
+				'keyword' => array('sql', "(name like '%?%' or code like '%?%' or phone like '%?%')"),
 			)
 		),
 		'student_filter' => array(

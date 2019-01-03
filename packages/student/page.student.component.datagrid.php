@@ -22,7 +22,7 @@ if(!isset($defaultClassFilters)) {
 		onRowContextMenu="studentMenu" nowrap="false"
 		table="student" width="700px" height="550px"
 		rowStyler="studentRowStyler" defaultFilters='<?php echo json_encode($filters)?>'>
-	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
+	<!--dg.dataGridItem field="id" width="40">Id</dg.dataGridItem-->
 	<dg.dataGridItem field="name" width="140" formatter="studentNameFormatter">Tên học sinh</dg.dataGridItem>
 	<!--dg.dataGridItem field="school" width="120">Trường</dg.dataGridItem-->
 	<dg.dataGridItem field="currentClassNames" width="100">Lớp</dg.dataGridItem>
