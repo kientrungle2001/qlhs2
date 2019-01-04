@@ -90,8 +90,23 @@ if(!isset($defaultClassFilters)) {
 			<layout.toolbarItem action="$dg.edit()" icon="edit" />
 			<layout.toolbarItem action="$dg.del()" icon="remove" />
 			<layout.toolbarItem action="$dg.detail({url: '{url /student/detail}', 'gridField': 'id', 'action': 'render', 'renderRegion': '#student-detail'}); $dg.detail(function(row) { selectClass(row); });" icon="sum" />
-			<layout.toolbarItem action="exportStudent('json'); return false;" icon="redo" label="JSON" />
-			<layout.toolbarItem action="exportStudent('excel'); return false;" icon="redo" label="EXCEL" />
+			<select id="exportType" name="exportType">
+				<option value="json">Định dạng</option>
+				<option value="json">JSON</option>
+				<option value="csv">CSV</option>
+				<option value="excel">Excel</option>
+				<option value="html">HTML</option>
+				<option value="pdf">Pđf</option>
+			</select>
+			<select id="exportRange" name="exportRange">
+				<option value="all">Phạm vi</option>
+				<option value="all">Tất cả</option>
+				<option value="search">Theo tìm kiếm</option>
+				<option value="page">Trang hiện thời</option>
+				<option value="selection">Lựa chọn</option>
+			</select>
+			<layout.toolbarItem action="exportStudents(); return false;" icon="redo" label="Export" />
+			<layout.toolbarItem action="importStudent('csv'); return false;" icon="undo" label="Import CSV" />
 		</hform>
 	</layout.toolbar>
 	<!-- Hết toolbar cho danh sách học sinh -->
@@ -177,3 +192,8 @@ if(!isset($defaultClassFilters)) {
 	<!-- Hết dialog thêm sửa học sinh -->
 </dg.dataGrid>
 <!-- Hết form thêm danh sách học sinh -->
+
+<!-- Import Dialog -->
+<wdw.dialog layout="easyui/window/dialog" id="dlg_import_student" width="1000px" height="500px;" title="Import học sinh">
+	<div id="import_area"></div>
+</wdw.dialog>

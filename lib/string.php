@@ -270,3 +270,23 @@ function form_combobox($name, $label, $sql) {
 		layout="category-select-list" />
 		</frm.formItem>';
 }
+
+function csvstr($fields)
+{
+	$f = fopen('php://memory', 'r+');
+	if (fputcsv($f, $fields) === false) {
+		return false;
+	}
+	rewind($f);
+	$csv_line = stream_get_contents($f);
+	return rtrim($csv_line);
+}
+
+function trstr($fields) {
+	$str = '<tr>';
+	foreach($fields as $field) {
+		$str .= '<td>' . $field . '</td>';
+	}
+	$str .= '</tr>';
+	return $str;
+}

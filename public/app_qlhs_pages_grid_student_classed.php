@@ -109,7 +109,11 @@ if(!isset($defaultClassFilters)) {
 			<layout.toolbarItem action="$dg.del()" icon="remove" />
 			<layout.toolbarItem action="$dg.detail({url: '<?php echo BASE_REQUEST . '/student/detail'; ?>', 'gridField': 'id', 'action': 'render', 'renderRegion': '#student-detail'}); $dg.detail(function(row) { selectClass(row); });" icon="sum" />
 			<layout.toolbarItem action="exportStudent('json'); return false;" icon="redo" label="JSON" />
-			<layout.toolbarItem action="exportStudent('excel'); return false;" icon="redo" label="EXCEL" />
+			<layout.toolbarItem action="exportStudent('csv'); return false;" icon="redo" label="CSV" />
+			<layout.toolbarItem action="exportAllStudent('json'); return false;" icon="redo" label="JSON All" />
+			<layout.toolbarItem action="exportAllStudent('csv'); return false;" icon="redo" label="CSV All" />
+			<layout.toolbarItem action="exportCurrentPageStudent('json'); return false;" icon="redo" label="JSON Current Page" />
+			<layout.toolbarItem action="exportCurrentPageStudent('csv'); return false;" icon="redo" label="CSV Current Page" />
 		</hform>
 	</layout.toolbar>
 	<!-- Hết toolbar cho danh sách học sinh -->
@@ -253,8 +257,8 @@ if(!isset($defaultClassFilters)) {
 		function exportStudent(type) {
 			pzk.elements.dg.export({
 				'fields': {
-					'name' : '#searchName', 'classIds' : '#searchClassIds', 
-					'phone': '#searchPhone', 'periodId' : '#searchPeriod', 
+					'classIds' : '#searchClassIds', 
+					'periodId' : '#searchPeriod', 
 					'notlikeperiodId': '#searchnotlikePeriod',
 					'subjectIds': '#searchSubject',
 					'color': '#searchColor',
@@ -266,6 +270,34 @@ if(!isset($defaultClassFilters)) {
 					'status': '#searchStatus',
 					'rating': '#searchRating' 
 				}
+			}, type);
+		}
+
+		function exportAllStudent(type) {
+			pzk.elements.dg.export({
+				'fields': {
+				}
+			}, type);
+		}
+
+		function exportCurrentPageStudent(type) {
+			pzk.elements.dg.export({
+				'fields': {
+					'classIds' : '#searchClassIds', 
+					'periodId' : '#searchPeriod', 
+					'notlikeperiodId': '#searchnotlikePeriod',
+					'subjectIds': '#searchSubject',
+					'color': '#searchColor',
+					'fontStyle': '#searchFontStyle',
+					'assignId': '#searchAssignId',
+					'online': '#searchOnline',
+					'type': '#searchType',
+					'classed': '#searchClassed',
+					'status': '#searchStatus',
+					'rating': '#searchRating' 
+				},
+				page: pzk.elements.dg.datagrid('options').pageNumber,
+				rows: pzk.elements.dg.datagrid('options').pageSize
 			}, type);
 		}
 

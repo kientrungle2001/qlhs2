@@ -156,12 +156,65 @@ class PzkTableController extends PzkController {
 			'query' => $query,
 			'totalQuery' => $totalQuery
 		);
-		if(@$_REQUEST['export']) {
+		if($type = @$_REQUEST['export']) {
+			if($type == 'json') {
+				$ext = 'json';
+			} elseif($type == 'excel') {
+				$ext = 'xlsx';
+			} elseif($type == 'csv') {
+				$ext = 'csv';
+			} elseif($type == 'html') {
+				$ext = 'html';
+			} else {
+				$ext = 'json';
+			}
 			$rand = rand(0, 1000000000000);
-			$file = '/cache/export-' .date('YmdHis'). '-' .$rand.'.json';
-			file_put_contents(BASE_DIR . $file, json_encode($data['rows']));
+			$file = '/cache/export-' .date('YmdHis'). '-' .$rand.'.' . $ext;
+			
+			if($ext == 'json') {
+				file_put_contents(BASE_DIR . $file, '');
+				foreach($items as $row) {
+					file_put_contents(BASE_DIR . $file, json_encode($row, JSON_UNESCAPED_UNICODE) . "\r\n", FILE_APPEND);
+				}
+			} elseif($ext == 'csv') {
+				file_put_contents(BASE_DIR . $file, '');
+				if(count($items)) {
+					$firstRow = $items[0];
+					$fields = array_keys($firstRow);
+					file_put_contents(BASE_DIR . $file, csvstr($fields) . "\r\n", FILE_APPEND);
+				}
+				foreach($items as $row) {
+					$line = csvstr(array_values($row));
+					file_put_contents(BASE_DIR . $file, $line . "\r\n", FILE_APPEND);
+				}
+			} elseif($ext == 'html') {
+				file_put_contents(BASE_DIR . $file, '<!DOCTYPE html><html>
+<head>
+	<title>Quản trị</title>
+	<meta name="google-site-verification" content="DJBoN802jfeoHdZJX1oM0vqdSuVjiqQ_0t4dHq0zEf4" />
+	<meta content="width=device-width, height=device-height initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"  name="viewport"  />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="canonical" href="http://phattrienngonngu.com/" />
+</head>
+<body>
+
+				<table border="1" style="border-collapse: collapse">'."\r\n");
+				if(count($items)) {
+					$firstRow = $items[0];
+					$fields = array_keys($firstRow);
+					file_put_contents(BASE_DIR . $file, trstr($fields) . "\r\n", FILE_APPEND);
+				}
+				foreach($items as $row) {
+					$line = trstr(array_values($row));
+					file_put_contents(BASE_DIR . $file, $line . "\r\n", FILE_APPEND);
+				}
+				file_put_contents(BASE_DIR . $file, "</table></body></html>", FILE_APPEND);
+			}
+
 			if (file_exists(BASE_DIR . $file)) {
-    echo json_encode(['file' => BASE_URL . $file]);
+    echo json_encode(['file' => BASE_URL . $file, 'query' => $query]);
 			}
 			//unlink($file);
 		} else {

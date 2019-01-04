@@ -25,8 +25,8 @@
 		function exportStudent(type) {
 			pzk.elements.dg.export({
 				'fields': {
-					'name' : '#searchName', 'classIds' : '#searchClassIds', 
-					'phone': '#searchPhone', 'periodId' : '#searchPeriod', 
+					'classIds' : '#searchClassIds', 
+					'periodId' : '#searchPeriod', 
 					'notlikeperiodId': '#searchnotlikePeriod',
 					'subjectIds': '#searchSubject',
 					'color': '#searchColor',
@@ -38,6 +38,34 @@
 					'status': '#searchStatus',
 					'rating': '#searchRating' 
 				}
+			}, type);
+		}
+
+		function exportAllStudent(type) {
+			pzk.elements.dg.export({
+				'fields': {
+				}
+			}, type);
+		}
+
+		function exportCurrentPageStudent(type) {
+			pzk.elements.dg.export({
+				'fields': {
+					'classIds' : '#searchClassIds', 
+					'periodId' : '#searchPeriod', 
+					'notlikeperiodId': '#searchnotlikePeriod',
+					'subjectIds': '#searchSubject',
+					'color': '#searchColor',
+					'fontStyle': '#searchFontStyle',
+					'assignId': '#searchAssignId',
+					'online': '#searchOnline',
+					'type': '#searchType',
+					'classed': '#searchClassed',
+					'status': '#searchStatus',
+					'rating': '#searchRating' 
+				},
+				page: pzk.elements.dg.datagrid('options').pageNumber,
+				rows: pzk.elements.dg.datagrid('options').pageSize
 			}, type);
 		}
 
@@ -102,6 +130,77 @@
 	}
 	function studentNameFormatter(value, row, index) {
 		return '<strong>' + row.name + '</strong>' + (row.code !== '' ? '<br />' + row.code: '') + (row.phone !== '' ? '<br />' + row.phone: '') + (row.startStudyDate !== '' ? '<br />' + row.startStudyDate: '');
+	}
+
+	function importStudent(type) {
+		var $fileUpload = jQuery('#fileUpload');
+		if(!$fileUpload.length) {
+			$fileUpload = jQuery('<input type="file" id="fileUpload" accept=".csv,.json" />');
+			jQuery('body').append($fileUpload);
+			$fileUpload.change(function(evt){
+				var file    = evt.target.files[0];
+				var reader  = new FileReader();
+
+				reader.addEventListener("load", function () {
+					var students = [];
+					var str = reader.result;
+					var lines = str.split(/\r\n|\r|\n/g);
+					lines.forEach(function(line, index) {
+						if(index > 50) return false;
+						try {
+							var student = JSON.parse(line);
+							students.push(student);
+							viewImportStudent(students);
+						} catch(err) {
+							console.log(err);
+						}
+					});
+				}, false);
+
+				if (file) {
+						reader.readAsText(file);
+				}
+			});
+		}
+		$fileUpload.click();
+	}
+	function viewImportStudent(students) {
+		jQuery('#import_area').css('overflow', 'scroll');
+		jQuery('#import_area').html('');
+		var tableHtml = '<table style="width: 100%;border-collapse:collapse;" border="1">';
+		if(students) {
+			var firstStudent = students[0];
+			tableHtml += '<tr>';
+				for(var field in firstStudent) {
+					tableHtml += '<th style="white-space: nowrap;">' + field + '</th>';
+				}
+			tableHtml += '</tr>';
+		}
+		students.forEach(function(student, index){
+			if(index > 50) return false;
+			tableHtml += '<tr>';
+				for(var field in student) {
+					var value = student[field];
+					tableHtml += '<td style="white-space: nowrap;">' + value + '</td>';
+				}
+			tableHtml += '</tr>';
+		});
+		tableHtml += '</table>';
+		jQuery('#import_area').html(tableHtml);
+		jQuery('#dlg_import_student').dialog('open');
+	}
+	function exportStudents() {
+		var type = $('#exportType').val();
+		var range = $('#exportRange').val();
+		var exportFunc = exportStudent;
+		if(range == 'all') {
+			exportFunc = exportAllStudent;
+		} else if(range == 'page') {
+			exportFunc = exportCurrentPageStudent;
+		} else {
+
+		}
+		exportFunc(type);
 	}
 	]]>
 </script>

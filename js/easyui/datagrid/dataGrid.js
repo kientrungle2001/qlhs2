@@ -306,6 +306,12 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 		var that = this;
 		var builder = options.builder || this.defaultBuilder;
 		var data = builder.call(this, null, options);
+		if(that.defaultFilters) {
+			var filters = JSON.parse(that.defaultFilters);
+			for(var k in filters) {
+				data[k] = filters[k];
+			}
+		}
 		$.ajax({
 			url: BASE_URL + '/index.php/dtable/json?table=' + this.table,
 			type: 'post',
@@ -313,13 +319,22 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 			data: {
 				filters: data,
 				export: type,
-				rows: 2000
+				rows: options.rows || 2000000000,
+				page: options.page || 1
 			},
 			success: function(resp) {
+				var ext = 'json';
+				if(type === 'csv') {
+					ext = 'csv';
+				} else if(type === 'excel') {
+					ext = 'xlsx';
+				} else if(type === 'html') {
+					ext = 'html';
+				}
 				var path= resp.file; 
     var save = document.createElement('a');  
     save.href = path; 
-    save.download = that.table; 
+    save.download = that.table + '.' + ext; 
     save.target = '_blank'; 
     document.body.appendChild(save);
     save.click();
