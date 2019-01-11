@@ -170,7 +170,11 @@ class PzkTableController extends PzkController {
 			}
 			$rand = rand(0, 1000000000000);
 			$file = '/cache/export-' .date('YmdHis'). '-' .$rand.'.' . $ext;
-			
+			$fieldOptions = $_REQUEST['fieldOptions'];
+			$foptions = array();
+			foreach($fieldOptions as $fieldOption) {
+				$foptions[$fieldOption['index']] = $fieldOption;
+			}
 			if($ext == 'json') {
 				file_put_contents(BASE_DIR . $file, '');
 				foreach($items as $row) {

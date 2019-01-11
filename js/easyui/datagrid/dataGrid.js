@@ -302,7 +302,7 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 		var data = builder.call(this, null, options);
 		$('#' + this.id).datagrid('load', {filters: data});
 	},
-	export: function(options, type) {
+	export: function(options, type, callback) {
 		var that = this;
 		var builder = options.builder || this.defaultBuilder;
 		var data = builder.call(this, null, options);
@@ -320,7 +320,8 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 				filters: data,
 				export: type,
 				rows: options.rows || 2000000000,
-				page: options.page || 1
+				page: options.page || 1,
+				fieldOptions: options.fieldOptions || null
 			},
 			success: function(resp) {
 				var ext = 'json';
@@ -338,7 +339,36 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
     save.target = '_blank'; 
     document.body.appendChild(save);
     save.click();
-    document.body.removeChild(save);
+				document.body.removeChild(save);
+				if(callback) {
+					callback(resp);
+				}
+			}
+		});
+	},
+	getRows: function(options, callback) {
+		var that = this;
+		var builder = options.builder || this.defaultBuilder;
+		var data = builder.call(this, null, options);
+		if(that.defaultFilters) {
+			var filters = JSON.parse(that.defaultFilters);
+			for(var k in filters) {
+				data[k] = filters[k];
+			}
+		}
+		$.ajax({
+			url: BASE_URL + '/index.php/dtable/json?table=' + this.table,
+			type: 'post',
+			dataType: 'json',
+			data: {
+				filters: data,
+				rows: options.rows || 1,
+				page: options.page || 1
+			},
+			success: function(resp) {
+				console.log(resp);
+				if(callback)
+					callback(resp);
 			}
 		});
 	},
@@ -383,5 +413,15 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 	},
 	getDatagrid: function() {
 		return $('#' + this.id);
+	},
+	doExport: function() {
+		// open export dialog
+		$('#export_' + this.id).dialog('open');
+		pzk.elements['export_' + this.id].startOver();
+	},
+	doImport: function() {
+		// open export dialog
+		$('#import_' + this.id).dialog('open');
+		pzk.elements['import_' + this.id].startOver();
 	}
 });

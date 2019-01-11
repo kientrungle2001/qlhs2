@@ -21,3 +21,4 @@ require_once 'core/controller/Admin.php';
 require_once 'core/controller/GridAdmin.php';
 require_once 'core/controller/Report.php';
 require_once 'model/Entity.php';
+require_once 'vendor/autoload.php';

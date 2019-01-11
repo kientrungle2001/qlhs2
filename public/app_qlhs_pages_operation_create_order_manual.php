@@ -1,1 +1,0 @@
-<edu.order.create id="bill_order" />

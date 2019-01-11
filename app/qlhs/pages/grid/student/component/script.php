@@ -69,6 +69,25 @@
 			}, type);
 		}
 
+		function getStudentSearchOption() {
+			return {
+				'fields': {
+					'classIds' : '#searchClassIds', 
+					'periodId' : '#searchPeriod', 
+					'notlikeperiodId': '#searchnotlikePeriod',
+					'subjectIds': '#searchSubject',
+					'color': '#searchColor',
+					'fontStyle': '#searchFontStyle',
+					'assignId': '#searchAssignId',
+					'online': '#searchOnline',
+					'type': '#searchType',
+					'classed': '#searchClassed',
+					'status': '#searchStatus',
+					'rating': '#searchRating' 
+				}
+			};
+		}
+
 		/**
 		* Hiển thị các lớp đang học khi chọn vào 1 học sinh
 		 */

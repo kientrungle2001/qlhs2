@@ -112,7 +112,10 @@
 					classId: row.id
 				});
 			}); showCalendar();" icon="sum" />
+			<layout.toolbarItem action="$dg.doExport(); return false;" icon="redo" label="Export" />
+			<layout.toolbarItem action="$dg.doImport(); return false;" icon="undo" label="Import" />
 		</hform>
+		
 	</layout.toolbar>
 	<wdw.dialog gridId="dg" width="700px" height="auto" title="Lớp học">
 		<frm.form gridId="dg">
@@ -166,6 +169,7 @@
 		</frm.form>
 	</wdw.dialog>
 </dg.dataGrid>
+<dg.export id="export_dg" gridId="dg" table="classes" width="700px" height="auto" searchOptions="getStudentSearchOption" />
 </div>
 <div style="float:left; margin-left: 20px; margin-top: 20px; width: auto;">
  <div class="easyui-tabs" style="width: 550px;">
